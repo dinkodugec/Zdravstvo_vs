@@ -4,7 +4,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $this->view->render('index');
+        $this->view->render('index', ['v'=> 7]);
     }
 
 

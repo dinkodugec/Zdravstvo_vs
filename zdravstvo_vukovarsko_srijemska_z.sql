@@ -13,12 +13,12 @@ create table operater(
 
 # lozinka je a
 insert into operater values(null,'edunova@edunova.com',
-'$2y$12$zAAPvVr86xzy5FP3JrbRU.PuLJXPzZDAl6bxTyajT6LBl61VK/tES ',
+'$2y$12$u4F6WrRJiewAPUvmgG.Q.uChzm4AdCBkfVWFTcusQJsp0SlJBeFxG',
 'Administrator','Edunova','admin');
 
 # lozinka je o
 insert into operater values(null,'oper@edunova.hr',
-'$2y$10$yECpl/AKVYMutwEcMTJOZeUWwJ8kk7EtafwXdhfjYqs3UX2pEUTFu',
+'$2y$12$kL5sRralxdraIcwdhgcYe.p0.l6Ij0YgnjfF/97uUC7UJGsjx8ES6',
 'Operater','Edunova','oper');
 
 create table bolnica(
@@ -66,7 +66,7 @@ create table lijek (
     bolest int not null,
     proizvodac varchar (50) null,
     cijena decimal (18,2) null
-)
+);
 
 alter table dom_zdravlja add foreign key (bolnica) references bolnica (sifra);
 alter table pacijent add foreign key (dom_zdravlja) references dom_zdravlja (sifra);
