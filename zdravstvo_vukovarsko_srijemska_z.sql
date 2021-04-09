@@ -66,7 +66,7 @@ create table lijek (
     bolest int not null,
     proizvodac varchar (50) null,
     cijena decimal (18,2) null
-)
+);
 
 alter table dom_zdravlja add foreign key (bolnica) references bolnica (sifra);
 alter table pacijent add foreign key (dom_zdravlja) references dom_zdravlja (sifra);
