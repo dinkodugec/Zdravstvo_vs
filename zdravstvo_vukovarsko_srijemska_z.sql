@@ -21,6 +21,7 @@ insert into operater values(null,'oper@edunova.hr',
 '$2y$12$kL5sRralxdraIcwdhgcYe.p0.l6Ij0YgnjfF/97uUC7UJGsjx8ES6',
 'Operater','Edunova','oper');
 
+
 create table bolnica(
     sifra int not null primary key auto_increment,
     ravnatelj varchar (50) null,
@@ -68,8 +69,50 @@ create table lijek (
     cijena decimal (18,2) null
 );
 
+
 alter table dom_zdravlja add foreign key (bolnica) references bolnica (sifra);
 alter table pacijent add foreign key (dom_zdravlja) references dom_zdravlja (sifra);
 alter table pacijent add foreign key (lijek) references lijek (sifra);
 alter table bolest add foreign key (intervencija) references intervencija (sifra);
 alter table lijek add foreign key (bolest) references bolest (sifra);
+
+
+insert into bolnica (sifra,ravnatelj,odjel,doktor) values
+(null,null,'kirurgija','Ivan Ivic'),
+(null,null,'pedijatrija','Andrija Anic'),
+(null,null,'onkologija','Ivan Horvat'),
+(null,null,'fizioterapija','Mato Matic');
+
+ insert into dom_zdravlja (sifra,doktor,bolnica,ordinacija) values
+ (1,1,1,'pedijatrija'),
+ (2,2,1,'fizioterapija'),
+ (3,3,1,'fizioterapija');
+ 
+insert into intervencija (sifra,vozilo,vozac,vrijeme) values
+(1,1,1,null);
+
+
+insert into bolest (sifra,intervencija,naziv,pacijent) values
+(1,1,'prehlada',1),
+(2,1,'COVID infekcija',1),
+(3,1,'gnojna angina',1),
+(4,1,'prijelom noge',1);
+
+
+insert into lijek (sifra,naziv,bolest,proizvodac,cijena) values
+(null,'andol',3,'Galenika',null),
+(null,'astrazeneca',2,'astrazeneca ltd',null),
+(null,'pfizer',2,'pfizer gmbh',null),
+(null,'Sputnik',2,'Mother Russia doo',null),
+(null,'sumamed',4,'Pliva',null);
+
+
+ 
+insert into pacijent (sifra,ime,prezime,oib,dom_zdravlja,lijek,bolestan) values
+(null,'Ivan','Maric',12345678912,2,2,true),
+(null,'Ivana','Mamic',12345678912,1,3,true),
+(null,'Ivano','Maric',12345678912,1,4,true),
+(null,'Ivanka','Maricic',12345678912,1,2,true),
+(null,'Josip','Markovic',12345678912,1,2,true);
+
+
