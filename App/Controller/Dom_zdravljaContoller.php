@@ -14,4 +14,11 @@ class Dom_zdravlja extends AutorizacijaController
         ]);
     }
 
+    public function novo()
+    {
+        $this->view->render($this->viewDir . 'novo',[
+            'domovizdravlja'=>Dom_Zdravlja::ucitajSve()
+        ]);
+    }
+
 }
