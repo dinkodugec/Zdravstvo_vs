@@ -1,7 +1,12 @@
-<pre>
-
-<?php pint_r($domovizdravlja) ?>
-
-</pre>
-
+<h1 style="font-size: 1em;">Dom Zdravlja</h1>
+<a href="#">Dodaj novi Dom Zdravlja</a>
+<ul>
+<?php foreach($domovizdravlja as $domzdravlja): ?>
+    <li>
+        <?=$smjer->naziv?> 
+        <a href="#">Promjeni</a>
+        <a href="#">Obriši</a>
+    </li>
+<?php endforeach; ?>
+</ul>
 
