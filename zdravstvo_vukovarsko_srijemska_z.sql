@@ -1,6 +1,9 @@
 drop database if exists zdravstvo_vukovarsko_srijemska_z;
-create database zdravstvo_vukovarsko_srijemska_z;
+create database zdravstvo_vukovarsko_srijemska_z character set utf8mb4 COLLATE utf8mb4_croatian_ci;;
 use zdravstvo_vukovarsko-srijemska_z;
+
+#na produkciji promjeniti charset jer je inicijalni krivo postavljen
+alter database nikta_pp22 default character set utf8mb4;
 
 create table operater(
     sifra int not null primary key auto_increment,

@@ -3,7 +3,7 @@ $dev=$_SERVER['REMOTE_ADDR']==='127.0.0.1' ? true : false;
 if($dev){
     $baza=[
         'server'=>'localhost',
-        'baza'=>'edunovapp22',
+        'baza'=>'zdravstvo_vukovarsko_srijemska_z',
         'korisnik'=>'edunova',
         'lozinka'=>'edunova'
     ];
@@ -20,3 +20,14 @@ return [
     'nazivApp'=>'zdravstvo vukovarsko srijem županije',
     'baza'=>$baza
 ];
+
+
+
+
+
+
+
+
+
+
+

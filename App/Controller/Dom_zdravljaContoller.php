@@ -9,7 +9,9 @@ class Dom_zdravlja extends AutorizacijaController
 
     public function index()
     {
-        $this->view->render($this->viewDir . 'index');
+        $this->view->render($this->viewDir . 'index',[
+            'domovizdravlja'=>Dom_Zdravlja::ucitajSve()
+        ]);
     }
 
 }
