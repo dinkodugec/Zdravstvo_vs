@@ -16,9 +16,28 @@ class Dom_zdravlja extends AutorizacijaController
 
     public function novo()
     {
-        $this->view->render($this->viewDir . 'novo',[
-            'domovizdravlja'=>Dom_Zdravlja::ucitajSve()
+        if($_SERVER['REQUEST_METHOD']==='GET'){
+            $dom_zdravlja = new stdClass();
+            $dom_zdravlja->doktor='';
+            $dom_zdravlja->ordinacija='';
+            this->view->render($this->viewDir . 'novo',[
+                'dom_zdravlja'=>$dom_$zdravlja,
+                'poruka'=>'Popunite podatke'
+    
+            ]);
+            return;
+        }
+
+        $dom_zdravlja = (object) $_POST;
+
+        if(strlen(trim($smjer->naziv))===0){
+        this->view->render($this->viewDir . 'novo',[
+            'dom_zdravlja'=>$dom_$zdravlja,
+            'poruka'=>'Dom_Zdravlja obavezno'
+
         ]);
+        return;
+        }
     }
 
 }
