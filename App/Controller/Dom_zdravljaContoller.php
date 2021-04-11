@@ -21,7 +21,7 @@ class Dom_zdravlja extends AutorizacijaController
             $dom_zdravlja->doktor='';
             $dom_zdravlja->ordinacija='';
             this->view->render($this->viewDir . 'novo',[
-                'dom_zdravlja'=>$dom_$zdravlja,
+                'dom_zdravlja'=>$dom_zdravlja,
                 'poruka'=>'Popunite podatke'
     
             ]);
@@ -30,14 +30,21 @@ class Dom_zdravlja extends AutorizacijaController
 
         $dom_zdravlja = (object) $_POST;
 
-        if(strlen(trim($smjer->naziv))===0){
-        this->view->render($this->viewDir . 'novo',[
-            'dom_zdravlja'=>$dom_$zdravlja,
-            'poruka'=>'Dom_Zdravlja obavezno'
-
-        ]);
+        if(strlen(trim($smjer->naziv))>50){
+        this->novoView($smjer,'Naziv ne moze imati vise od 50 znakova')
         return;
         }
     }
+
+
+    private function novoView($dom_zdravlja, $poruka)
+    {
+        this->view->render($this->viewDir . 'novo',[
+            'dom_zdravlja'=>$dom_$zdravlja,
+            'poruka'=>$poruka
+
+        ]);
+    }
+    
 
 }
