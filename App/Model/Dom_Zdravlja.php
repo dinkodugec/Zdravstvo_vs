@@ -3,17 +3,17 @@
 class Dom_Zdravlja
 {
 
-    public static function ucitajSve()
+    public static function ucitaj($sifra)
     {
 
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-            select * from dom_zdravlja
+            select * from dom_zdravlja where sifra=:sifra
         
         ');
-        $izraz->execute()
-        return $izraz->fetchAll();
+        $izraz->execute(['sifra'=>$sifra]);
+        return $izraz->fetch();
     
     }
 
@@ -22,10 +22,25 @@ class Dom_Zdravlja
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-            insert into dom_zdravlja (doktor,bolnica,ordinacija)
-            values (:doktor,:bolnica,:ordinacija)
+            insert into dom_zdravlja (naziv,doktor,bolnica,ordinacija)
+            values (:naziv,:doktor,:bolnica,:ordinacija)
         ');
         $izraz->execute((array)$dom_zdravlja);
     }
 
+    public static function promjeniPostojeci($dom_zdravlja)
+    {
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+            update dom_zdravlja set
+            naziv=:naziv,doktor=:doktor,
+            bolnica=:bolnica,ordinacija=:ordinacija
+            where sifra=:sifra
+            
+        ');
+       
+        $izraz->execute((array)$dom_zdravlja);
+
+    }
 }

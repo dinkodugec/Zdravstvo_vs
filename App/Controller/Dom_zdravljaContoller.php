@@ -7,6 +7,10 @@ class Dom_zdravlja extends AutorizacijaController
                         . 'smjer'
                         . DIRECTORY_SEPARATOR;
 
+    private $dom_zdravlja=null;
+    private $poruka='';                 
+
+
     public function index()
     {
         $this->view->render($this->viewDir . 'index',[
@@ -17,46 +21,114 @@ class Dom_zdravlja extends AutorizacijaController
     public function novo()
     {
         if($_SERVER['REQUEST_METHOD']==='GET'){
-            $dom_zdravlja = new stdClass();
-            $dom_zdravlja->doktor='';
-            $dom_zdravlja->ordinacija='';
-            $this->novoView($dom_zdravlja,'popunite sve podatke');
+            $this->NoviDom_Zdravlja();
             return;
         }
 
-        $dom_zdravlja = (object) $_POST;
-
-        if(strlen(trim($dom_zdravlja->naziv))===0){
-        $this->novoView($dom_zdravlja,'Naziv obvezno');
-        return;
-        }
-
-        if(strlen(trim($dom_zdravlja->naziv))>50){
-            $this->novoView($dom_zdravlja,'Naziv ne moze imati vise od 50 znakova');
-            return;
-            }
-
-
-        if(strlen(trim($dom_zdravlja->ordinacija))===0){
-                $this->novoView($dom_zdravlja,'Naziv obvezno');
-                return;
-                }
+        $this->dom_zdravlja = (object) $_POST;
+        if(!$this->kontrolaNaziv()){return;}
+        if(!$this->kontrolaDoktor()){return;}
+        if(!$this->kontrolaOrdinacija()){return;}
+        Dom_Zdravlja::dodajNovi($this->dom_zdravlja);
+        $this->index();
         
-        if(strlen(trim($dom_zdravlja->ordinacija))>50){
-                    $this->novoView($dom_zdravlja,'Naziv ne moze imati vise od 50 znakova');
-                    return;
-                    }    
+    }
+     
+    public function promjena()
+    {
+        if($_SERVER['REQUEST_METHOD']==='GET'){
+            if(!isset($_GET['sifra'])){
+               $ic = new IndexController();
+               $ic->logout();
+               return;
+            }
+        
+            $this->dom_zdravlja = Dom_Zdravlja::ucitaj($_GET['sifra']);
+            $this->poruka='Promjenite zeljene podatke';
+            $this->promjenaView();
+            return;
+        }  
+
+        $this->dom_zdravlja = (object) $_POST;
+        if(!$this->kontrolaNaziv()){return;}
+        if(!$this->kontrolaDoktor()){return;}
+        // neću odraditi na promjeni bolnice
+        Dom_Zdravlja::promjeniPostojeci($this->dom_zdravlja);
+        $this->index();
     }
 
+    private function noviDom_Zdravlja()
+    {
+        $this->dom_zdravlja = new stdClass();
+        $this->dom_zdravlja->doktor='';
+        $this->dom_zdravlja->ordinacija='';
+        $this->poruka='Unesite trazene podatke';
+        $this->novoView();
+    }
 
-    private function novoView($dom_zdravlja, $poruka)
+    private function novoView()
     {
         this->view->render($this->viewDir . 'novo',[
+            'dom_zdravlja'=>$this->dom_zdravlja,
+            'poruka'=>$this->poruka
+
+        ]);
+    }
+
+    private function promjenaView()
+    {
+        this->view->render($this->viewDir . 'promjena',[
             'dom_zdravlja'=>$dom_zdravlja,
             'poruka'=>$poruka
 
         ]);
     }
     
+    private function kontrolaNaziv()
+    {
+        if(strlen(trim($this->dom_zdravlja->naziv))===0){
+            $this->poruka='Naziv obavezno';
+            $this->novoView();
+            return false;
+         }
+ 
+         if(strlen(trim($this->dom_zdravlja->naziv))>50){
+            $this->poruka='Naziv ne može imati više od 50 znakova';
+            $this->novoView();
+            return false;
+         }
+         return true;
+    }
+    
+    private function kontrolaDoktor()
+    {
+        if(strlen(trim($this->dom_zdravlja->doktor))===0){
+            $this->poruka='Doktor obavezno';
+            $this->novoView();
+            return false;
+         }
+ 
+         if(strlen(trim($this->dom_zdravlja->doktor))>50){
+            $this->poruka='Doktor ne može imati više od 50 znakova';
+            $this->novoView();
+            return false;
+         }
+         return true;
+    }
 
+    private function kontrolaOrdinacija()
+    {
+        if(strlen(trim($this->dom_zdravlja->ordinacija))===0){
+            $this->poruka='Ordinacija obavezno';
+            $this->novoView();
+            return false;
+         }
+ 
+         if(strlen(trim($this->dom_zdravlja->ordinacija))>50){
+            $this->poruka='Ordinacijane može imati više od 50 znakova';
+            $this->novoView();
+            return false;
+         }
+         return true;
+    }
 }
