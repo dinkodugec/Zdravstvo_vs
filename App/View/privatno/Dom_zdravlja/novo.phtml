@@ -2,9 +2,14 @@
     action="<?=App::config('url')?>Dom_Zdravlja/novo"
     method="POST">
   <h4 class="text-center">Dodavanje novog Doma Zdravlja</h4>
-  <label>Naziv
-    <input type="text" name="naziv" value="<?=$dom_zdravlja->$naziv?>">
-  </label>
+  <div class="grid-x grid-padding-x">
+     <div class="cell">
+        <label>Naziv
+     <input type="text" name="naziv" value="<?=$dom_zdravlja->$naziv?>">
+    </label>
+   </div>
+  </div>
+
 
   <div class="grid-x grid-padding-x">
   <div class="cell large-4">
@@ -24,9 +29,15 @@
   </div>
 </div> 
 
+<div class="grid-x grid-padding-x">
+     <div class="cell">
+        <div class="callout">
+        <?=$poruka?>
+        </div>
+   </div>
+  </div>
   
   
-  <?=$poruka?>
 
 <div class="grid-x grid-padding-x">
   <div class="cell medium-6 large-6">

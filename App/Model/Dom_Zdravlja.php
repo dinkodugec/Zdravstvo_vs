@@ -43,4 +43,19 @@ class Dom_Zdravlja
         $izraz->execute((array)$dom_zdravlja);
 
     }
+
+
+    public static function obrisiPostojeci($sifra)
+    {
+
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+            delete * from dom_zdravlja where sifra=:sifra
+        
+        ');
+        $izraz->execute(['sifra'=>$sifra]);
+        
+    
+    }
 }

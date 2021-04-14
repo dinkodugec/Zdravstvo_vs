@@ -57,6 +57,20 @@ class Dom_zdravlja extends AutorizacijaController
         $this->index();
     }
 
+    
+    public function brisanje()
+    {
+        if(!isset($_GET['sifra'])){
+            $ic = new IndexController();
+            $ic->logout();
+            return;
+        }
+        Dom_Zdravlja::obrisiPostojeci($_GET['sifra']);
+        $this->index();
+        
+    }
+
+
     private function noviDom_Zdravlja()
     {
         $this->dom_zdravlja = new stdClass();
