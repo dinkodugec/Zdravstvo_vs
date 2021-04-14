@@ -21,7 +21,7 @@ class Dom_zdravlja extends AutorizacijaController
     public function novo()
     {
         if($_SERVER['REQUEST_METHOD']==='GET'){
-            $this->NoviDom_Zdravlja();
+            $this->noviDom_Zdravlja();
             return;
         }
 

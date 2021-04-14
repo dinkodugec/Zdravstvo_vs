@@ -17,6 +17,19 @@ class Dom_Zdravlja
     
     }
 
+
+    /*public static function ucitajSve()
+    {
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+    
+
+        ');
+        $izraz->execute();
+        return $izraz->fetchAll();
+    }*/
+
     public static function dodajNovi($dom_zdravlja)
     {
         $veza = DB::getInstanca();
