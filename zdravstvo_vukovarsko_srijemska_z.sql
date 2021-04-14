@@ -1,3 +1,4 @@
+# c:\xampp\mysql\bin\mysql -uedunova -pedunova < D:\Aplikacija\Zdrastvo_Vukovarsko_Srijemska\zdravstvo_vukovarsko_srijemska_z.sql
 drop database if exists zdravstvo_vukovarsko_srijemska_z;
 create database zdravstvo_vukovarsko_srijemska_z character set utf8mb4 COLLATE utf8mb4_croatian_ci;;
 use zdravstvo_vukovarsko-srijemska_z;
