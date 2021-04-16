@@ -22,7 +22,10 @@ class IndexController extends Controller
 
     public function login()
     {
-        $this->view->render('login');
+        $this->view->render('login', [
+            'email'=>'',
+            'poruka'=>'unesite potrebne podatke'
+        ]);
     }
 
 

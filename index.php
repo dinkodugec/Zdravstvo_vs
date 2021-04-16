@@ -2,11 +2,11 @@
 
 //https://stackify.com/display-php-errors/
 // odkomentirati kada želimo vidjeti sva upozorenja i greške
-/*
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-*/
+
 
 
 session_start();
@@ -21,8 +21,8 @@ define('BP_APP',__DIR__ . DIRECTORY_SEPARATOR
 $putanje=implode(
     PATH_SEPARATOR,
     [
-        BP_APP . 'model',
-        BP_APP . 'controller'
+        BP_APP . 'Model',
+        BP_APP . 'Controller'
     ]
 );
 
@@ -32,7 +32,8 @@ set_include_path($putanje);
 
 spl_autoload_register(function($klasa){
     $putanje = explode(PATH_SEPARATOR,get_include_path());
-    foreach($putanje as $p){
+    foreach($putanje as $p){ 
+        //echo $p . DIRECTORY_SEPARATOR . $klasa . '.php' . '<br>'; 
         if (file_exists($p . DIRECTORY_SEPARATOR . $klasa . '.php')){
             include $p . DIRECTORY_SEPARATOR . $klasa . '.php';
         }

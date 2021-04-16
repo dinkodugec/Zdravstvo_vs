@@ -7,6 +7,8 @@ if($dev){
         'korisnik'=>'edunova',
         'lozinka'=>'edunova'
     ];
+
+    $url='http://zdravstvo.vs.hr:8080/';
 }else{
     $baza=[
         'server'=>'localhost',
@@ -14,9 +16,10 @@ if($dev){
         'korisnik'=>'uran_edunova',
         'lozinka'=>'ronbetelges'
     ];
+    $url='http://polaznik29.edunova.hr/';
 }
 return [
-    'url'=>'http://zdravstvo.vs.hr/',
+    'url'=>$url,
     'nazivApp'=>'zdravstvo vukovarsko srijem županije',
     'baza'=>$baza
 ];
