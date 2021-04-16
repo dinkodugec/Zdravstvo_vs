@@ -1,5 +1,6 @@
 <?php
 
+// čitati o Iznimkama https://www.php.net/manual/en/language.exceptions.php
 class PacijentController extends AutorizacijaController
 {
     private $viewDir = 'privatno'
@@ -27,6 +28,15 @@ class PacijentController extends AutorizacijaController
         }
 
         $this->entitet = (object) $_POST;
+
+        try {
+            $this->kontrolaIme();
+            $this->kontrolaPrezime();
+        } catch (Exception $e) {
+            $this->poruka=$e->getMessage();
+            $this->novoView();
+            return;
+        }
         
         Pacijent::dodajNovi($this->entitet);
         $this->index();
@@ -53,6 +63,21 @@ class PacijentController extends AutorizacijaController
             'poruka'=>$this->poruka
 
         ]);
+    }
+
+
+    private function kontrolaIme()
+    {
+        if(strlen(trim($this->entitet->ime))==0){
+            throw new Exception('Ime obavezno');
+        }
+    }
+
+    private function kontrolaPrezime()
+    {
+        if(strlen(trim($this->entitet->prezime))==0){
+            throw new Exception('Prezime obavezno');
+        }
     }
 }
     
