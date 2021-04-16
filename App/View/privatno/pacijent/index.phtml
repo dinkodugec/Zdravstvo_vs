@@ -1,1 +1,27 @@
-<?php print_r($entiteti); ?>
+<table>
+    <thead>
+        <tr>
+            <th>Ime i prezime pacijenta</th>
+            <th>email</th>
+            <th>IBAN</th>
+            <th>OIB</th>
+            <th style="text-align: right;">
+            <a href="#">Dodaj novog</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($entiteti as $red): ?>
+            <tr>
+                <td><?=$red->ime?> <?=$red->prezime?></td>
+                <td><?=$red->email?></td>
+                <td><?=$red->iban?></td>
+                <td><?=$red->oib?></td>
+                <td>Promjeni Obrisi</td>
+            </tr>    
+                    
+
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
