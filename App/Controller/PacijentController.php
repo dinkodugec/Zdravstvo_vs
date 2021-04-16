@@ -17,5 +17,42 @@ class PacijentController extends AutorizacijaController
             'entiteti'=>Pacijent::ucitajSve()
         ]);
     }
+
+
+    public function novo()
+    {
+        if($_SERVER['REQUEST_METHOD']==='GET'){
+            $this->noviEntitet();
+            return;
+        }
+
+        $this->entitet = (object) $_POST;
+        
+        Pacijent::dodajNovi($this->entitet);
+        $this->index();
+        
+    }
+
+
+    private function noviEntitet()
+    {
+        $this->entitet = new stdClass();
+        $this->entitet->ime='';
+        $this->entitet->prezime='';
+        $this->entitet->oib='';
+        $this->entitet->dom_zdravlja='';
+        $this->poruka='Unesite trazene podatke';
+        $this->novoView();
+    }
+
+
+    private function novoView()
+    {
+        this->view->render($this->viewDir . 'novo',[
+            'entitet'=>$this->entitet,
+            'poruka'=>$this->poruka
+
+        ]);
+    }
 }
     
