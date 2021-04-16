@@ -4,7 +4,7 @@ class Dom_zdravlja extends AutorizacijaController
 {
     private $viewDir = 'privatno'
                         . DIRECTORY_SEPARATOR
-                        . 'smjer'
+                        . 'dom_zdravlja'
                         . DIRECTORY_SEPARATOR;
 
     private $dom_zdravlja=null;
