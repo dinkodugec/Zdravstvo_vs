@@ -26,21 +26,40 @@ class PacijentController extends AutorizacijaController
             $this->noviEntitet();
             return;
         }
-
         $this->entitet = (object) $_POST;
-
         try {
-            $this->kontrolaIme();
-            $this->kontrolaPrezime();
+            $this->kontrola();
+            Pacijent::dodajNovi($this->entitet);
+            $this->index();
         } catch (Exception $e) {
             $this->poruka=$e->getMessage();
             $this->novoView();
+        }       
+    }
+
+
+    public function promjena()
+    {
+        if($_SERVER['REQUEST_METHOD']==='GET'){
+            if(!isset($_GET['sifra'])){
+               $ic = new IndexController();
+               $ic->logout();
+               return;
+            }
+            $this->entitet = Pacijent::ucitaj($_GET['sifra']);
+            $this->poruka='Promjenite željene podatke';
+            $this->promjenaView();
             return;
         }
-        
-        Pacijent::dodajNovi($this->entitet);
-        $this->index();
-        
+        $this->entitet = (object) $_POST;
+        try {
+            $this->kontrolaImePrezime();
+            Pacijent::promjeniPostojeci($this->entitet);
+            $this->index();
+        } catch (Exception $e) {
+            $this->poruka=$e->getMessage();
+            $this->promjenaView();
+        }       
     }
 
 
@@ -54,6 +73,16 @@ class PacijentController extends AutorizacijaController
         $this->poruka='Unesite trazene podatke';
         $this->novoView();
     }
+
+    private function promjenaView()
+    {
+        this->view->render($this->viewDir . 'promjena',[
+            'entitet'=>$this->entitet,
+            'poruka'=>$this->poruka
+
+        ]);
+    }
+
 
 
     private function novoView()
