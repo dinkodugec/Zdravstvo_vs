@@ -120,8 +120,37 @@ class Pacijent
         $veza->commit();
 
     }
-}
 
+
+    public static function obrisiPostojeci($sifra)
+    {
+        $veza = DB::getInstanca();
+        $veza->beginTransaction();
+        $izraz=$veza->prepare('
+        
+          select lijek from pacijent where sifra=:sifra
+        
+        ');
+        $izraz->execute(['sifra'=>$sifra]);
+        $sifraLijek=$izraz->fetchColumn();
+
+        $izraz=$veza->prepare('
+        
+            delete from pacijent where sifra=:sifra
+        
+        ');
+        $izraz->execute(['sifra'=>$sifra]);
+
+
+        $izraz=$veza->prepare('
+        
+            delete from lijek where sifra=:sifra
+        
+        ');
+        $izraz->execute(['sifra'=>$sifraLijek]);
+
+        $veza->commit();
+    }
 
 }
 
