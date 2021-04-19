@@ -1,24 +1,21 @@
 <?php
 
-// čitati o Iznimkama https://www.php.net/manual/en/language.exceptions.php
-class PacijentController extends AutorizacijaController
+class LijekController extends AutorizacijaController
 {
     private $viewDir = 'privatno'
                         . DIRECTORY_SEPARATOR
-                        . 'pacijent'
+                        . 'polaznik'
                         . DIRECTORY_SEPARATOR;
-
+    
     private $entitet=null;
-    private $poruka='';                 
-
+    private $poruka='';
 
     public function index()
     {
         $this->view->render($this->viewDir . 'index',[
-            'entiteti'=>Pacijent::ucitajSve()
+            'entiteti'=>Lijek::ucitajSve()
         ]);
     }
-
 
     public function novo()
     {
@@ -29,14 +26,13 @@ class PacijentController extends AutorizacijaController
         $this->entitet = (object) $_POST;
         try {
             $this->kontrola();
-            Pacijent::dodajNovi($this->entitet);
+            Lijek::dodajNovi($this->entitet);
             $this->index();
         } catch (Exception $e) {
             $this->poruka=$e->getMessage();
             $this->novoView();
         }       
     }
-
 
     public function promjena()
     {
@@ -46,7 +42,7 @@ class PacijentController extends AutorizacijaController
                $ic->logout();
                return;
             }
-            $this->entitet = Pacijent::ucitaj($_GET['sifra']);
+            $this->entitet = Lijek::ucitaj($_GET['sifra']);
             $this->poruka='Promjenite željene podatke';
             $this->promjenaView();
             return;
@@ -54,13 +50,14 @@ class PacijentController extends AutorizacijaController
         $this->entitet = (object) $_POST;
         try {
             $this->kontrolaImePrezime();
-            Pacijent::promjeniPostojeci($this->entitet);
+            Lijek::promjeniPostojeci($this->entitet);
             $this->index();
         } catch (Exception $e) {
             $this->poruka=$e->getMessage();
             $this->promjenaView();
         }       
     }
+
 
     public function brisanje()
     {
@@ -69,20 +66,28 @@ class PacijentController extends AutorizacijaController
             $ic->logout();
             return;
         }
-        Pacijent::obrisiPostojeci($_GET['sifra']);
-        header('location: ' . App::config('url') . 'pacijent/index');
+        Lijek::obrisiPostojeci($_GET['sifra']);
+        header('location: ' . App::config('url') . 'polaznik/index');
        
     }
 
 
-    private function noviEntitet()
+
+
+
+
+
+    
+
+    /*private function noviEntitet()
     {
         $this->entitet = new stdClass();
         $this->entitet->ime='';
         $this->entitet->prezime='';
+        $this->entitet->email='';
         $this->entitet->oib='';
-        $this->entitet->dom_zdravlja='';
-        $this->poruka='Unesite trazene podatke';
+        $this->entitet->brojugovora='';
+        $this->poruka='Unesite tražene podatke';
         $this->novoView();
     }
 
@@ -91,21 +96,17 @@ class PacijentController extends AutorizacijaController
         $this->view->render($this->viewDir . 'promjena',[
             'entitet'=>$this->entitet,
             'poruka'=>$this->poruka
-
         ]);
     }
-
-
+    */
 
     private function novoView()
     {
         $this->view->render($this->viewDir . 'novo',[
             'entitet'=>$this->entitet,
             'poruka'=>$this->poruka
-
         ]);
     }
-
 
     private function kontrola()
     {
@@ -136,11 +137,10 @@ class PacijentController extends AutorizacijaController
             throw new Exception('Prezime obavezno');
         }
     }
+
     private function kontrolaOib()
     {
         if(!Kontrola::CheckOIB($this->entitet->oib)){
             throw new Exception('OIB nije ispravan');
         }
     }
-}
-    

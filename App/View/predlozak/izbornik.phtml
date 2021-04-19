@@ -19,7 +19,7 @@
             <li><a href="<?=App::config('url')?>dom_zdravlja/index">Dom_zdravlja</a></li>
             <li><a href="<?=App::config('url')?>pacijent/index">Pacijent</a></li>
             <li><a href="#">Bolest</a></li>
-            <li><a href="#">Lijek</a></li>
+            <li><a href="<?=App::config('url')?>lijek/index">Lijek</a></li>
             <?php if($_SESSION['autoriziran']->uloga=='admin'): ?>
               <li><a href="#">Operateri</a></li>
             <?php endif;?>
@@ -36,6 +36,8 @@
       <?php if(!isset($_SESSION['autoriziran'])): ?>
         <a href="<?=App::config('url')?>index/login">Autoriziraj</a>
       <?php else: ?>
+
+      
         
         <a href="<?=App::config('url')?>index/logout">
         <?=$_SESSION['autoriziran']->ime?> <?=$_SESSION['autoriziran']->prezime?> Odjava
