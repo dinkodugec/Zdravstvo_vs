@@ -1,6 +1,6 @@
 <?php
 
-class Dom_zdravlja extends AutorizacijaController
+class DomzdravljaController extends AutorizacijaController
 {
     private $viewDir = 'privatno'
                         . DIRECTORY_SEPARATOR
@@ -82,7 +82,7 @@ class Dom_zdravlja extends AutorizacijaController
 
     private function novoView()
     {
-        this->view->render($this->viewDir . 'novo',[
+        $this->view->render($this->viewDir . 'novo',[
             'dom_zdravlja'=>$this->dom_zdravlja,
             'poruka'=>$this->poruka
 
@@ -91,7 +91,7 @@ class Dom_zdravlja extends AutorizacijaController
 
     private function promjenaView()
     {
-        this->view->render($this->viewDir . 'promjena',[
+        $this->view->render($this->viewDir . 'promjena',[
             'dom_zdravlja'=>$dom_zdravlja,
             'poruka'=>$poruka
 

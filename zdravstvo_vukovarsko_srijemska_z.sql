@@ -35,6 +35,7 @@ create table bolnica(
 
 create table dom_zdravlja(
     sifra int not null primary key auto_increment,
+    naziv varchar (50) not null,
     doktor varchar (50) not null,
     bolnica int not null,
     ordinacija varchar (50) null
@@ -73,6 +74,17 @@ create table lijek (
     cijena decimal (18,2) null
 );
 
+create table operater(
+    sifra int not null primary key auto_increment,
+    email varchar(50) not null,
+    lozinka char(60) not null,
+    ime varchar(50) not null,
+    prezime varchar(50) not null,
+    uloga varchar(10) not null
+);
+
+
+
 
 alter table dom_zdravlja add foreign key (bolnica) references bolnica (sifra);
 alter table pacijent add foreign key (dom_zdravlja) references dom_zdravlja (sifra);
@@ -87,10 +99,10 @@ insert into bolnica (sifra,ravnatelj,odjel,doktor) values
 (null,null,'onkologija','Ivan Horvat'),
 (null,null,'fizioterapija','Mato Matic');
 
- insert into dom_zdravlja (sifra,doktor,bolnica,ordinacija) values
- (1,1,1,'pedijatrija'),
- (2,2,1,'fizioterapija'),
- (3,3,1,'fizioterapija');
+ insert into dom_zdravlja (sifra,naziv,doktor,bolnica,ordinacija) values
+ (1,'dom zdravlja zupanja',1,1,'pedijatrija'),
+ (2,'dom zdravlja otok',2,1,'fizioterapija'),
+ (3,'dom zdravlja stitar',3,1,'fizioterapija');
  
 insert into intervencija (sifra,vozilo,vozac,vrijeme) values
 (1,1,1,null);
@@ -118,5 +130,18 @@ insert into pacijent (sifra,ime,prezime,oib,dom_zdravlja,lijek,bolestan) values
 (null,'Ivano','Maric',12345678912,1,4,true),
 (null,'Ivanka','Maricic',12345678912,1,2,true),
 (null,'Josip','Markovic',12345678912,1,2,true);
+
+# lozinka je a
+insert into operater values(null,'edunova@edunova.com',
+'$2y$12$u4F6WrRJiewAPUvmgG.Q.uChzm4AdCBkfVWFTcusQJsp0SlJBeFxG',
+'Administrator','Edunova','admin');
+
+# lozinka je o
+insert into operater values(null,'oper@edunova.hr',
+'$2y$12$kL5sRralxdraIcwdhgcYe.p0.l6Ij0YgnjfF/97uUC7UJGsjx8ES6',
+'Operater','Edunova','oper');
+
+
+select * from pacijent ;
 
 

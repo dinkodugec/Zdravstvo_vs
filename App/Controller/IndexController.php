@@ -76,7 +76,7 @@ class IndexController extends Controller
 
      
         unset($rezultat->lozinka);
-        $_SESSION['autoriziran']='Edunova Korisnik';
+        $_SESSION['autoriziran']=$rezultat;
         $np = new NadzornaplocaController();
         $np->index();
         

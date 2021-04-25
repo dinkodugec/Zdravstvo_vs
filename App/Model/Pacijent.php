@@ -9,7 +9,9 @@ class Pacijent
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-       
+           
+
+
         ');
         $izraz->execute(['sifra'=>$sifra]);
         return $izraz->fetch();
@@ -24,7 +26,8 @@ class Pacijent
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        
+        select a.sifra, a.ime, a.prezime, a.oib, b.naziv as lijek from pacijent a inner join lijek b
+        on a.lijek = b.sifra;
         
         ');
         $izraz->execute();
