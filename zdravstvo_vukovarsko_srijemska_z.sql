@@ -1,10 +1,10 @@
 # c:\xampp\mysql\bin\mysql -uedunova -pedunova < D:\Aplikacija\Zdrastvo_Vukovarsko_Srijemska\zdravstvo_vukovarsko_srijemska_z.sql
 drop database if exists zdravstvo_vukovarsko_srijemska_z;
 create database zdravstvo_vukovarsko_srijemska_z character set utf8mb4 COLLATE utf8mb4_croatian_ci;;
-use zdravstvo_vukovarsko-srijemska_z;
+use zdravstvo_vukovarsko_srijemska_z;
 
 #na produkciji promjeniti charset jer je inicijalni krivo postavljen
-alter database nikta_pp22 default character set utf8mb4;
+#alter database nikta_pp22 default character set utf8mb4;
 
 create table operater(
     sifra int not null primary key auto_increment,
@@ -15,14 +15,14 @@ create table operater(
     uloga varchar(10) not null
 );
 
-# lozinka je a
+# lozinka je dinko123
 insert into operater values(null,'edunova@edunova.com',
-'$2y$12$u4F6WrRJiewAPUvmgG.Q.uChzm4AdCBkfVWFTcusQJsp0SlJBeFxG',
+'$2y$12$Wwi52tY5v0GWQIxa9qNrVe2e.naAVIJC/ZR7OurUMHb0ZwXd9AezO ',
 'Administrator','Edunova','admin');
 
-# lozinka je o
+# lozinka je dinko
 insert into operater values(null,'oper@edunova.hr',
-'$2y$12$kL5sRralxdraIcwdhgcYe.p0.l6Ij0YgnjfF/97uUC7UJGsjx8ES6',
+'$2y$12$iozrmfD44NMyElnHeXy/Pu3pvRkzLoijCyM6Iz1ORKAnWoB6Pcu7O ',
 'Operater','Edunova','oper');
 
 
@@ -121,15 +121,6 @@ insert into pacijent (sifra,ime,prezime,oib,domzdravlja,lijek,bolestan) values
 (null,'Ivanka','Maricic',12345678912,1,2,true),
 (null,'Josip','Markovic',12345678912,1,2,true);
 
-# lozinka je a
-insert into operater values(null,'edunova@edunova.com',
-'$2y$12$u4F6WrRJiewAPUvmgG.Q.uChzm4AdCBkfVWFTcusQJsp0SlJBeFxG',
-'Administrator','Edunova','admin');
-
-# lozinka je o
-insert into operater values(null,'oper@edunova.hr',
-'$2y$12$kL5sRralxdraIcwdhgcYe.p0.l6Ij0YgnjfF/97uUC7UJGsjx8ES6',
-'Operater','Edunova','oper');
 
 
 select * from pacijent ;

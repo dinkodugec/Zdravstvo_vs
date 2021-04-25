@@ -95,7 +95,7 @@ class IndexController extends Controller
     }
         
 
-    public function test()
+    /*public function test()
     {
         echo password_hash('o',PASSWORD_BCRYPT);
         $veza = DB::getInstanca();
@@ -104,7 +104,7 @@ class IndexController extends Controller
         $rezultati = $izraz->fetchAll();
         print_r($rezultati);
     }
-        
+    */    
         
 
 
