@@ -4,32 +4,32 @@ class DomzdravljaController extends AutorizacijaController
 {
     private $viewDir = 'privatno'
                         . DIRECTORY_SEPARATOR
-                        . 'dom_zdravlja'
+                        . 'domzdravlja'
                         . DIRECTORY_SEPARATOR;
 
-    private $dom_zdravlja=null;
+    private $domzdravlja=null;
     private $poruka='';                 
 
 
     public function index()
     {
         $this->view->render($this->viewDir . 'index',[
-            'domovizdravlja'=>Dom_Zdravlja::ucitajSve()
+            'domovizdravlja'=>Domzdravlja::ucitajSve()
         ]);
     }
 
     public function novo()
     {
         if($_SERVER['REQUEST_METHOD']==='GET'){
-            $this->noviDom_Zdravlja();
+            $this->noviDomzdravlja();
             return;
         }
 
-        $this->dom_zdravlja = (object) $_POST;
+        $this->domzdravlja = (object) $_POST;
         if(!$this->kontrolaNaziv()){return;}
         if(!$this->kontrolaDoktor()){return;}
         if(!$this->kontrolaOrdinacija()){return;}
-        Dom_Zdravlja::dodajNovi($this->dom_zdravlja);
+        Domzdravlja::dodajNovi($this->domzdravlja);
         $this->index();
         
     }
@@ -43,17 +43,17 @@ class DomzdravljaController extends AutorizacijaController
                return;
             }
         
-            $this->dom_zdravlja = Dom_Zdravlja::ucitaj($_GET['sifra']);
+            $this->dom_zdravlja = Domzdravlja::ucitaj($_GET['sifra']);
             $this->poruka='Promjenite zeljene podatke';
             $this->promjenaView();
             return;
         }  
 
-        $this->dom_zdravlja = (object) $_POST;
+        $this->domzdravlja = (object) $_POST;
         if(!$this->kontrolaNaziv()){return;}
         if(!$this->kontrolaDoktor()){return;}
         // neću odraditi na promjeni bolnice
-        Dom_Zdravlja::promjeniPostojeci($this->dom_zdravlja);
+        Dom_Zdravlja::promjeniPostojeci($this->domzdravlja);
         $this->index();
     }
 
@@ -65,17 +65,17 @@ class DomzdravljaController extends AutorizacijaController
             $ic->logout();
             return;
         }
-        Dom_Zdravlja::obrisiPostojeci($_GET['sifra']);
+        Domzdravlja::obrisiPostojeci($_GET['sifra']);
         $this->index();
         
     }
 
 
-    private function noviDom_Zdravlja()
+    private function noviDomzdravlja()
     {
-        $this->dom_zdravlja = new stdClass();
-        $this->dom_zdravlja->doktor='';
-        $this->dom_zdravlja->ordinacija='';
+        $this->domzdravlja = new stdClass();
+        $this->domzdravlja->doktor='';
+        $this->domzdravlja->ordinacija='';
         $this->poruka='Unesite trazene podatke';
         $this->novoView();
     }
@@ -83,7 +83,7 @@ class DomzdravljaController extends AutorizacijaController
     private function novoView()
     {
         $this->view->render($this->viewDir . 'novo',[
-            'dom_zdravlja'=>$this->dom_zdravlja,
+            'dom_zdravlja'=>$this->domzdravlja,
             'poruka'=>$this->poruka
 
         ]);
@@ -92,7 +92,7 @@ class DomzdravljaController extends AutorizacijaController
     private function promjenaView()
     {
         $this->view->render($this->viewDir . 'promjena',[
-            'dom_zdravlja'=>$dom_zdravlja,
+            'domzdravlja'=>$domzdravlja,
             'poruka'=>$poruka
 
         ]);
@@ -100,13 +100,13 @@ class DomzdravljaController extends AutorizacijaController
     
     private function kontrolaNaziv()
     {
-        if(strlen(trim($this->dom_zdravlja->naziv))===0){
+        if(strlen(trim($this->domzdravlja->naziv))===0){
             $this->poruka='Naziv obavezno';
             $this->novoView();
             return false;
          }
  
-         if(strlen(trim($this->dom_zdravlja->naziv))>50){
+         if(strlen(trim($this->domzdravlja->naziv))>50){
             $this->poruka='Naziv ne može imati više od 50 znakova';
             $this->novoView();
             return false;
@@ -116,13 +116,13 @@ class DomzdravljaController extends AutorizacijaController
     
     private function kontrolaDoktor()
     {
-        if(strlen(trim($this->dom_zdravlja->doktor))===0){
+        if(strlen(trim($this->domzdravlja->doktor))===0){
             $this->poruka='Doktor obavezno';
             $this->novoView();
             return false;
          }
  
-         if(strlen(trim($this->dom_zdravlja->doktor))>50){
+         if(strlen(trim($this->domzdravlja->doktor))>50){
             $this->poruka='Doktor ne može imati više od 50 znakova';
             $this->novoView();
             return false;
@@ -132,13 +132,13 @@ class DomzdravljaController extends AutorizacijaController
 
     private function kontrolaOrdinacija()
     {
-        if(strlen(trim($this->dom_zdravlja->ordinacija))===0){
+        if(strlen(trim($this->domzdravlja->ordinacija))===0){
             $this->poruka='Ordinacija obavezno';
             $this->novoView();
             return false;
          }
  
-         if(strlen(trim($this->dom_zdravlja->ordinacija))>50){
+         if(strlen(trim($this->domzdravlja->ordinacija))>50){
             $this->poruka='Ordinacijane može imati više od 50 znakova';
             $this->novoView();
             return false;

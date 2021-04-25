@@ -1,6 +1,6 @@
 <?php
 
-class Dom_Zdravlja
+class Domzdravlja
 {
 
     public static function ucitaj($sifra)
@@ -9,7 +9,7 @@ class Dom_Zdravlja
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-            select * from dom_zdravlja where sifra=:sifra
+            select * from domzdravlja where sifra=:sifra
         
         ');
         $izraz->execute(['sifra'=>$sifra]);
@@ -23,37 +23,37 @@ class Dom_Zdravlja
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-           select * from dom_zdravlja
+           select * from domzdravlja
 
         ');
         $izraz->execute();
         return $izraz->fetchAll();
     }
 
-    public static function dodajNovi($dom_zdravlja)
+    public static function dodajNovi($domzdravlja)
     {
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-            insert into dom_zdravlja (naziv,doktor,bolnica,ordinacija)
+            insert into domzdravlja (naziv,doktor,bolnica,ordinacija)
             values (:naziv,:doktor,:bolnica,:ordinacija)
         ');
-        $izraz->execute((array)$dom_zdravlja);
+        $izraz->execute((array)$domzdravlja);
     }
 
-    public static function promjeniPostojeci($dom_zdravlja)
+    public static function promjeniPostojeci($domzdravlja)
     {
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-            update dom_zdravlja set
+            update domzdravlja set
             naziv=:naziv,doktor=:doktor,
             bolnica=:bolnica,ordinacija=:ordinacija
             where sifra=:sifra
             
         ');
        
-        $izraz->execute((array)$dom_zdravlja);
+        $izraz->execute((array)$domzdravlja);
 
     }
 
@@ -64,7 +64,7 @@ class Dom_Zdravlja
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-            delete * from dom_zdravlja where sifra=:sifra
+            delete * from domzdravlja where sifra=:sifra
         
         ');
         $izraz->execute(['sifra'=>$sifra]);

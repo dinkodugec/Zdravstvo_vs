@@ -33,7 +33,7 @@ create table bolnica(
     doktor varchar (50) not null
 );
 
-create table dom_zdravlja(
+create table domzdravlja(
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
     doktor varchar (50) not null,
@@ -46,7 +46,7 @@ create table pacijent (
     ime varchar (50) not null,
     prezime varchar (50) not null,
     oib char (11),
-    dom_zdravlja int not null,
+    domzdravlja int not null,
     lijek int not null,
     bolestan boolean
 );
@@ -74,20 +74,10 @@ create table lijek (
     cijena decimal (18,2) null
 );
 
-create table operater(
-    sifra int not null primary key auto_increment,
-    email varchar(50) not null,
-    lozinka char(60) not null,
-    ime varchar(50) not null,
-    prezime varchar(50) not null,
-    uloga varchar(10) not null
-);
 
 
-
-
-alter table dom_zdravlja add foreign key (bolnica) references bolnica (sifra);
-alter table pacijent add foreign key (dom_zdravlja) references dom_zdravlja (sifra);
+alter table domzdravlja add foreign key (bolnica) references bolnica (sifra);
+alter table pacijent add foreign key (domzdravlja) references domzdravlja (sifra);
 alter table pacijent add foreign key (lijek) references lijek (sifra);
 alter table bolest add foreign key (intervencija) references intervencija (sifra);
 alter table lijek add foreign key (bolest) references bolest (sifra);
@@ -99,10 +89,10 @@ insert into bolnica (sifra,ravnatelj,odjel,doktor) values
 (null,null,'onkologija','Ivan Horvat'),
 (null,null,'fizioterapija','Mato Matic');
 
- insert into dom_zdravlja (sifra,naziv,doktor,bolnica,ordinacija) values
- (1,'dom zdravlja zupanja',1,1,'pedijatrija'),
- (2,'dom zdravlja otok',2,1,'fizioterapija'),
- (3,'dom zdravlja stitar',3,1,'fizioterapija');
+ insert into domzdravlja (sifra,naziv,doktor,bolnica,ordinacija) values
+ (1,'domzdravlja zupanja',1,1,'pedijatrija'),
+ (2,'domzdravlja otok',2,1,'fizioterapija'),
+ (3,'domzdravlja stitar',3,1,'fizioterapija');
  
 insert into intervencija (sifra,vozilo,vozac,vrijeme) values
 (1,1,1,null);
@@ -124,7 +114,7 @@ insert into lijek (sifra,naziv,bolest,proizvodac,cijena) values
 
 
  
-insert into pacijent (sifra,ime,prezime,oib,dom_zdravlja,lijek,bolestan) values
+insert into pacijent (sifra,ime,prezime,oib,domzdravlja,lijek,bolestan) values
 (null,'Ivan','Maric',12345678912,2,2,true),
 (null,'Ivana','Mamic',12345678912,1,3,true),
 (null,'Ivano','Maric',12345678912,1,4,true),
