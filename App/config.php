@@ -20,7 +20,7 @@ if($dev){
 }
 return [
     'url'=>$url,
-    'nazivApp'=>'zdravstvo vukovarsko srijem županije',
+    'nazivApp'=>'zdravstvo vukovarsko srijemske županije',
     'baza'=>$baza
 ];
 

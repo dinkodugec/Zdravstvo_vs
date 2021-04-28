@@ -95,16 +95,16 @@ class IndexController extends Controller
     }
         
 
-    /*public function test()
+    public function test()
     {
-        echo password_hash('o',PASSWORD_BCRYPT);
+        
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('select * from bolnica');
         $izraz->execute();
         $rezultati = $izraz->fetchAll();
         print_r($rezultati);
     }
-    */    
+      
         
 
 
