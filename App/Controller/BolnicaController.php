@@ -17,4 +17,12 @@ class BolnicaController extends AutorizacijaController
         ]);
     }
 
+
+    public function novo()
+    {
+        $this->view->render($this->viewDir . 'novo',[
+            'bolnice'=>Bolnica::ucitajSve()
+        ]);
+    }
+
 }
