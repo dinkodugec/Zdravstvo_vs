@@ -1,1 +1,25 @@
-Kreiranje nove bolnice
+<form class="log-in-form" 
+    action="<?=App::config('url')?>bolnica/novo"
+    method="POST">
+  <h4 class="text-center">Dodavanje nove bolnice</h4>
+  
+  <label>Naziv
+    <input type="text" name="naziv" value="<?=$bolnica->naziv?>">
+  </label>
+  
+  <label>Ravnatelj
+    <input type="text" name="ravnatelj" value="<?=$bolnica->ravnatelj?>">
+  </label>
+ 
+  <label>Odjel
+    <input type="text" name="odjel" value="<?=$bolnica->odjel?>">
+  </label>
+
+  <label>Doktor
+    <input type="text" name="doktor" value="<?=$bolnica->odoktor?>">
+  </label>
+ 
+
+ <p><input type="submit" class="button expanded" value="Prijava"></input></p>
+<?=$poruka?>
+</form>
