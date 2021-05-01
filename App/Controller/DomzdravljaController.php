@@ -53,7 +53,7 @@ class DomzdravljaController extends AutorizacijaController
         if(!$this->kontrolaNaziv()){return;}
         if(!$this->kontrolaDoktor()){return;}
         // neću odraditi na promjeni bolnice
-        Dom_Zdravlja::promjeniPostojeci($this->domzdravlja);
+        Domzdravlja::promjeniPostojeci($this->domzdravlja);
         $this->index();
     }
 
@@ -92,8 +92,8 @@ class DomzdravljaController extends AutorizacijaController
     private function promjenaView()
     {
         $this->view->render($this->viewDir . 'promjena',[
-            'domzdravlja'=>$domzdravlja,
-            'poruka'=>$poruka
+            'domzdravlja'=>$this->domzdravlja,
+            'poruka'=>$this->poruka
 
         ]);
     }
