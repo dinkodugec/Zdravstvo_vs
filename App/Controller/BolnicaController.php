@@ -12,7 +12,9 @@ class BolnicaController extends AutorizacijaController
 
     public function index()
     {
-        $this->view->render($this->viewDir . 'index');
+        $this->view->render($this->viewDir . 'index',[
+            'bolnice'=>Bolnica::ucitajSve()
+        ]);
     }
 
 }
