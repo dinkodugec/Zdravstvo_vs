@@ -5,7 +5,8 @@
 <?php foreach($bolnice as $bolnica): ?>
       <li>
            <?=$bolnica->naziv?>
-            <a href="#">Promjeni</a>
+           <a href="<?=App::config('url')?>bolnica/promjena?sifra=<?=$bolnica->sifra?>">
+            Promjeni
             <a href="#">Obriši</a>
       </li>    
     <?php endforeach; ?>

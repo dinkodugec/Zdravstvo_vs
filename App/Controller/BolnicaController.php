@@ -90,11 +90,38 @@ class BolnicaController extends AutorizacijaController
         
     }   
     
+
+    public function promjena()
+    {
+        if($_SERVER['REQUEST_METHOD']==='GET'){
+            if(!isset($_GET['sifra'])){
+               $ic = new IndexController();
+               $ic->logout();
+               return;
+            }
+            $this->bolnica = Bolnica::ucitaj($_GET['sifra']);
+            $this->poruka='Promjenite željene podatke';
+            return;
+        }
+
+        $bolnica = (object) $_POST;
+       
+
+    }    
+
      private function novoView($bolnica, $poruka)
     {
         $this->view->render($this->viewDir . 'novo',[
             'bolnica'=>$bolnica,
             'poruka'=>'$poruka'
+        ]);
+    }
+
+    private function promjenaView()
+    {
+        $this->view->render($this->viewDir . 'promjena',[
+            'bolnica'=>$this->bolnica,
+            'poruka'=>$this->poruka
         ]);
     }
 

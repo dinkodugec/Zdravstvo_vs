@@ -3,6 +3,20 @@
 class Bolnica
 {
 
+
+    public static function ucitaj($sifra)
+    {
+
+        $veza = DB::getInstanca();    //spajanje na bazu
+        $izraz = $veza->prepare('          
+        
+              select * from bolnica where sifra = :sifra
+
+        ');
+        $izraz->execute();
+        return $izraz->fetch();
+    }
+
     public static function ucitajSve()
     {
 
