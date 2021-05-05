@@ -42,4 +42,18 @@ class Bolnica
         $izraz->execute((array)$bolnica);
     }
 
+    public static function promjeniPostojecu($bolnica)
+    {
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+           update bolnica set 
+           naziv=:naziv,ravnatelj=:ravnatelj,
+           odjel=:odjel,doktor=:doktor 
+           where sifra=:sifra
+        
+        ');
+        $izraz->execute((array)$bolnica);
+    }
+
 }

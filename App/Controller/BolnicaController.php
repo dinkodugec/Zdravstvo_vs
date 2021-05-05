@@ -10,6 +10,10 @@ class BolnicaController extends AutorizacijaController
     
 
      
+    private $bolnica=null;
+    private $poruka ='';
+    
+
 
 
     public function index()
@@ -24,69 +28,17 @@ class BolnicaController extends AutorizacijaController
     {
        
         if($_SERVER['REQUEST_METHOD']==='GET'){
-            $bolnica = new stdClass();
-            $bolnica->naziv='';
-            $bolnica->ravnatelj='';
-            $bolnica->odjel='';
-            $bolnica->doktor='';
-            
-            $this->novoView($bolnica, 'Popunite sve podatke');
+            $this->NovaBolnica();
             return;
         }
-       
-        $bolnica = (object) $_POST;
-       
-        //naziv
-        if(strlen(trim($bolnica->naziv))===0){
-            $this->novoView($bolnica, 'Naziv obvezno');
-        return;
-        }
-
-        if(strlen(trim($bolnica->naziv))>50){
-            $this->novoView($bolnica, 'Naziv ne moze imati više od 50 znakova');
-            return;
-        }
-
-        
-        //ravnatelj
-        if(strlen(trim($bolnica->ravnatelj))===0){
-            $this->novoView($bolnica, 'Ravnatelj obvezno');
-        return;
-        }
-
-        if(strlen(trim($bolnica->ravnatelj))>50){
-            $this->novoView($bolnica, 'Ravnatelj ne moze imati više od 50 znakova');
-            return;
-        }
-
-
-        //odjel
-        if(strlen(trim($bolnica->odjel))===0){
-            $this->novoView($bolnica, 'Odjel obvezno');
-        return;
-        }
-
-        if(strlen(trim($bolnica->odjel))>50){
-            $this->novoView($bolnica, 'Odjel ne moze imati više od 50 znakova');
-            return;
-        }
-        
-
-        //doktor
-        if(strlen(trim($bolnica->doktor))===0){
-            $this->novoView($bolnica, 'Doktor obvezno');
-        return;
-        }
-
-        if(strlen(trim($bolnica->doktor))>50){
-            $this->novoView($bolnica, 'Doktor ne moze imati više od 50 znakova');
-            return;
-        }
-
-
-        //ovdje sam siguran da je sve ok s kontrolama
-       Bolnica::dodajNovu($bolnica);
-       $this->index();
+        $this->bolnica = (object) $_POST;
+        if(!$this->kontrolaNaziv()){return;}
+        if(!$this->kontrolaRavnatelj()){return;}
+        if(!$this->kontrolaOdjel()){return;}
+        if(!$this->kontrolaDoktor()){return;}
+      
+        Bolnica::dodajNovu($this->bolnica);
+        $this->index();
         
     }   
     
@@ -101,19 +53,36 @@ class BolnicaController extends AutorizacijaController
             }
             $this->bolnica = Bolnica::ucitaj($_GET['sifra']);
             $this->poruka='Promjenite željene podatke';
-            return;
+            $this->promjenaView();
+           return;
         }
 
-        $bolnica = (object) $_POST;
-       
+        $this->bolnica = (object) $_POST;
+        if(!$this->kontrolaNaziv()){return;}
+        if(!$this->kontrolaOdjel()){return;}
+        // odlučujem koje odrađujem kontrole 
+        Bolnica::promjeniPostojecu($this->bolnica);
+        $this->index();
 
     }    
 
-     private function novoView($bolnica, $poruka)
+    private function novaBolnica()
+    {
+        $this->bolnica = new stdClass();
+        $this->bolnica->naziv='';
+        $this->bolnica->ravnatelj='';
+        $this->bolnica->odjel='';
+        $this->bolnica->doktor='';
+        $this->poruka='Unesite željene podatke';
+        $this->novoView();
+    }
+
+
+     private function novoView()
     {
         $this->view->render($this->viewDir . 'novo',[
-            'bolnica'=>$bolnica,
-            'poruka'=>'$poruka'
+            'bolnica'=>$this->bolnica,
+            'poruka'=>$this->poruka
         ]);
     }
 
@@ -124,6 +93,70 @@ class BolnicaController extends AutorizacijaController
             'poruka'=>$this->poruka
         ]);
     }
+ 
+
+    private function kontrolaNaziv()
+    {
+        if(strlen(trim($this->bolnica->naziv))===0){
+            $this->poruka='Naziv obavezno';
+            $this->novoView();
+            return false;
+         }
+ 
+         if(strlen(trim($this->bolnica->naziv))>50){
+            $this->poruka='Naziv ne može imati više od 50 znakova';
+            $this->novoView();
+            return false;
+         }
+         return true;
+    }
 
 
+    private function kontrolaRavnatelj()
+    {
+        if(strlen(trim($this->bolnica->ravnatelj))===0){
+            $this->poruka='Ravnatelj obavezno';
+            $this->novoView();
+            return false;
+         }
+ 
+         if(strlen(trim($this->bolnica->ravnatelj))>50){
+            $this->poruka='Ravnatelj ne može imati više od 50 znakova';
+            $this->novoView();
+            return false;
+         }
+         return true;
+    }
+
+    private function kontrolaOdjel()
+    {
+        if(strlen(trim($this->bolnica->odjel))===0){
+            $this->poruka='Odjel obavezno';
+            $this->novoView();
+            return false;
+         }
+ 
+         if(strlen(trim($this->bolnica->odjel))>50){
+            $this->poruka='Odjel ne može imati više od 50 znakova';
+            $this->novoView();
+            return false;
+         }
+         return true;
+    }
+
+    private function kontrolaDoktor()
+    {
+        if(strlen(trim($this->bolnica->doktor))===0){
+            $this->poruka='Doktor obavezno';
+            $this->novoView();
+            return false;
+         }
+ 
+         if(strlen(trim($this->bolnica->doktor))>50){
+            $this->poruka='Doktorne može imati više od 50 znakova';
+            $this->novoView();
+            return false;
+         }
+         return true;
+    }
 }    
