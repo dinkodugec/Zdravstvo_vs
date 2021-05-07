@@ -23,7 +23,10 @@ class Bolnica
         $veza = DB::getInstanca();    //spajanje na bazu
         $izraz = $veza->prepare('          
         
-              select * from bolnica
+        select a.*, count(b.sifra) as ukupnodomovazdravlja from bolnica a
+        left join domzdravlja b on a.sifra=b.bolnica 
+        group by a.sifra, a.naziv, a.doktor, a.odjel,a.ravnatelj,a.doktor;
+        
 
         ');
         $izraz->execute();
@@ -54,6 +57,19 @@ class Bolnica
         
         ');
         $izraz->execute((array)$bolnica);
+    }
+
+    public static function obrisiPostojecu($sifra)
+    {
+
+        $veza = DB::getInstanca();   
+        $izraz = $veza->prepare('          
+        
+              delete from bolnica where sifra = :sifra
+
+        ');
+        $izraz->execute(['sifra'=>$sifra]);
+    
     }
 
 }

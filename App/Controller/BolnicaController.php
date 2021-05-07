@@ -66,11 +66,25 @@ class BolnicaController extends AutorizacijaController
 
     }    
 
+
+    public function brisanje()
+    {
+        if(!isset($_GET['sifra'])){
+            $ic = new IndexController();
+            $ic->logout();
+            return;
+        }
+        Bolnica::obrisiPostojecu($_GET['sifra']);
+        $this->index();
+       
+    }
+
+
     private function novaBolnica()
     {
         $this->bolnica = new stdClass();
         $this->bolnica->naziv='';
-        $this->bolnica->ravnatelj='';
+        $this->bolnica->ravnatelj='Marko Marić';
         $this->bolnica->odjel='';
         $this->bolnica->doktor='';
         $this->poruka='Unesite željene podatke';
