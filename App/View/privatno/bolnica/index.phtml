@@ -1,5 +1,5 @@
 <h1 style="font-size: 1em;">Bolnice</h1>
-<a href="<?=App::config('url')?>bolnica/novo">>Dodaj novu bolnicu</a>
+<a href="<?=App::config('url')?>bolnica/novo">Dodaj novu bolnicu</a>
 
 <ul style="list-style-type: none">
 <?php foreach($bolnice as $bolnica): ?>
@@ -11,8 +11,8 @@
             Promjeni
             </a>
             <?php if($bolnica->ukupnodomovazdravlja==0): ?>
-            <a href="<?=App::config('url')?>smjer/brisanje?sifra=<?=$smjer->sifra?>"
-            onclick="return confirm('Sigurno obrisati <?=$smjer->naziv?>?');">
+            <a href="<?=App::config('url')?>bolnica/brisanje?sifra=<?=$bolnica->sifra?>"
+            onclick="return confirm('Sigurno obrisati <?=$bolnica->naziv?>?');">
             <i title="brisanje" style="color: red" class="fas fa-trash-alt"></i></a>
         <?php endif;?>
       </li>    

@@ -1,12 +1,37 @@
-<h1 style="font-size: 1em;">Dom Zdravlja</h1>
-<a href="<?=App::config('url')?>Dom_Zdravlja/novo">Dodaj novi Dom Zdravlja</a>
-<ul>
-<?php foreach($domovizdravlja as $domzdravlja): ?>
-    <li>
-        <?=$domzdravlja->naziv?> 
-        <a href="<?=App::config('url')?>Domzdravlja/promjena?sifra=">Promjeni</a>
-        <a href="#">Obriši</a>
-    </li>
-<?php endforeach; ?>
-</ul>
+
+
+
+<table>
+    <thead>
+         <tr>
+            <th>Naziv</th>
+            <th>Doktor</th>
+            <th>Bolnica</th>
+            <th>Ordinacija</th>
+            <th style= "text-align: right;"><a href=""></a>Dodaj novi Dom Zdravlja</th>
+         </tr>
+    </thead>
+
+<tbody>
+       <?php foreach($domovizdravlja as $red): ?>
+          <tr>
+              <tr>
+                <td><?=$red->naziv?></td>
+                <td><?=$red->doktor?></td>
+                <td><?=$red->bolnica?></td>
+                <td><?=$red->ordinacija?></td>
+                <td><a href="<?=App::config('url')?>domzdravlja/promjena?sifra=<?=$red->sifra?>">
+                        <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
+                    </a> 
+                        <?php if($red->ukupnogrupa==0): ?>  
+                        <a href="<?=App::config('url')?>domzdravlja/brisanje?sifra=<?=$domozdravlja->sifra?>"
+                        onclick="return confirm('Sigurno obrisati <?=$red->naziv?> <?=$red->pordinacija?>?');">
+                        <i title="brisanje" style="color: red" class="fas fa-trash-alt"></i></a>
+                     <?php endif;?></td>
+              </tr>
+          </tr> 
+       <?php endforeach; ?>
+</tbody>
+
+</table>
 

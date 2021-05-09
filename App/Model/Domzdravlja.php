@@ -1,6 +1,6 @@
 <?php
 
-class Domzdravlja
+class Domzdravlja 
 {
 
     public static function ucitaj($sifra)
