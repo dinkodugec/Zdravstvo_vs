@@ -3,7 +3,7 @@
 class Domzdravlja 
 {
 
-    public static function ucitaj($sifra)
+   public static function ucitaj($sifra)
     {
 
         $veza = DB::getInstanca();
@@ -18,12 +18,15 @@ class Domzdravlja
     }
 
 
-    public static function ucitajSve()
+    public static function ucitajSve() 
     {
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-           select * from domzdravlja
+        select a.sifra, a.naziv, a.doktor, a.bolnica,a.ordinacija,
+        b.ime,b.prezime,b.oib,b.domzdravlja,b.lijek,b.bolestan from domzdravlja a
+        inner join pacijent b on a.sifra =b.domzdravlja
+        left join lijek c on a.sifra=c.sifra  
 
         ');
         $izraz->execute();
@@ -58,13 +61,13 @@ class Domzdravlja
     }
 
 
-    public static function obrisiPostojeci($sifra)
+    public static function obrisiPostojeci($sifra)  //problem
     {
 
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-            delete * from domzdravlja where sifra=:sifra
+            delete * from domzdravlja where sifra=:sifra 
         
         ');
         $izraz->execute(['sifra'=>$sifra]);

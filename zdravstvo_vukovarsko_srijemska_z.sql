@@ -38,7 +38,7 @@ create table domzdravlja(
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
     doktor varchar (50) not null,
-    bolnica int not null,
+    bolnica varchar not null,
     ordinacija varchar (50) null
 );
 
@@ -47,8 +47,8 @@ create table pacijent (
     ime varchar (50) not null,
     prezime varchar (50) not null,
     oib char (11),
-    domzdravlja int not null,
-    lijek int not null,
+    domzdravlja varchar not null,
+    lijek varchar not null,
     bolestan boolean
 );
 
@@ -56,13 +56,13 @@ create table bolest (
     sifra int not null primary key auto_increment,
     intervencija int not null,
     naziv varchar (50) null,
-    pacijent int not null
+    pacijent varchar not null
 );
 
 create table intervencija (
     sifra int not null primary key auto_increment,
     vozilo int not null,
-    vozac int not null,
+    vozac varchar not null,
     vrijeme datetime null
     
 );
@@ -70,7 +70,7 @@ create table intervencija (
 create table lijek (
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
-    bolest int not null,
+    bolest varchar not null,
     proizvodac varchar (50) null,
     cijena decimal (18,2) null
 );
