@@ -37,13 +37,38 @@ class Domzdravlja
     public static function dodajNovi($domzdravlja)
     {
         $veza = DB::getInstanca();
+        $veza->beginTransaction();
         $izraz=$veza->prepare('
         
-            insert into domzdravlja (naziv,doktor,bolnica,ordinacija)
-            values (:naziv,:doktor,:bolnica,:ordinacija)
+            insert into pacijent 
+            (ime, prezime, oib, domzdravlja, lijek, bolestan) values
+            (:ime, :prezime, :oib, :domzdravlja, :lijek, :bolestan )
+            
         ');
-        $izraz->execute((array)$domzdravlja);
+        $izraz->execute([
+            'ime'=>$domzdravlja->ime,
+            'prezime'=>$domzdravlja->prezime,
+            'oib'=>$domzdravlja->oib,
+            'domzdravlja'=>$domzdravlja->domzdravlja,
+            'lijek'=>$domzdravlja->lijek,
+            'bolestan'=>$domzdravlja->bolestan
+        ]);
+        $zadnjaSifra=$veza->lastInsertId();
+        $izraz=$veza->prepare('
+        
+            insert into domzdravlja 
+            (pacijent, oib) values
+            (:pacijent, :oib)
+        
+        ');
+        $izraz->execute([
+            'pacijent'=>$zadnjaSifra,
+            'oib'=>$domzdravlja->oib
+        ]);
+
+        $veza->commit();
     }
+
 
     public static function promjeniPostojeci($domzdravlja)
     {
