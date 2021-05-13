@@ -7,7 +7,7 @@ class Bolnica
     public static function ucitaj($sifra)
     {
 
-        $veza = DB::getInstanca();    //spajanje na bazu
+        $veza = DB::getInstanca();   
         $izraz = $veza->prepare('          
         
               select * from bolnica where sifra = :sifra
@@ -20,7 +20,7 @@ class Bolnica
     public static function ucitajSve()
     {
 
-        $veza = DB::getInstanca();    //spajanje na bazu
+        $veza = DB::getInstanca();   
         $izraz = $veza->prepare('          
         
         select a.*, count(b.sifra) as ukupnodomovazdravlja from bolnica a

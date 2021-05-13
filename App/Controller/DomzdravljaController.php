@@ -74,6 +74,8 @@ class DomzdravljaController extends AutorizacijaController
     private function noviDomzdravlja()
     {
         $this->domzdravlja = new stdClass();
+        $this->domzdravlja->naziv='';
+        $this->domzdravlja->doktor='';
         $this->domzdravlja->doktor='';
         $this->domzdravlja->ordinacija='';
         $this->poruka='Unesite trazene podatke';
@@ -83,7 +85,7 @@ class DomzdravljaController extends AutorizacijaController
     private function novoView()
     {
         $this->view->render($this->viewDir . 'novo',[
-            'dom_zdravlja'=>$this->domzdravlja,
+            'domzdravlja'=>$this->domzdravlja,
             'poruka'=>$this->poruka
 
         ]);
