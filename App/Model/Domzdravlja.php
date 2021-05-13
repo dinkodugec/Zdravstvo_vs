@@ -73,17 +73,46 @@ class Domzdravlja
     public static function promjeniPostojeci($domzdravlja)
     {
         $veza = DB::getInstanca();
+        $veza->beginTransaction();
         $izraz=$veza->prepare('
         
-            update domzdravlja set
-            naziv=:naziv,doktor=:doktor,
-            bolnica=:bolnica,ordinacija=:ordinacija
-            where sifra=:sifra
+            select bolnica from domzdravlja where sifra=:sifra
             
         ');
        
-        $izraz->execute((array)$domzdravlja);
+        $izraz->execute(['sifra'=>$domzdravlja->sifra]);
+        $sifrabolnica=$izraz->fetchColumn();
 
+        $izraz=$veza->prepare('
+        
+            update bolnica
+            set naziv=:naziv, ravnatelj=:ravnatelj, odjel=:odjel, doktor=:doktor
+            where sifra=:sifra
+            
+        ');
+        $izraz->execute([
+            'naziv'=>$domzdravlja->naziv,
+            'ravnatelj'=>$domzdravlja->ravnatelj,
+            'odjel'=>$domzdravlja->odjel,
+            'doktor'=>$domzdravlja->doktor,
+            'sifra'=>$sifrabolnica
+        ]);
+
+        $izraz=$veza->prepare('
+        
+            update domzdravlja 
+            set naziv=:naziv
+            where sifra=:sifra
+    
+        ');
+        $izraz->execute([
+            'sifra'=>$domzdravlja->sifra,
+            'naziv'=>$domzdravlja->naziv
+        ]);
+
+
+
+        $veza->commit();
     }
 
 
