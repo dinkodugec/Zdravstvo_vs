@@ -54,11 +54,14 @@ class DomzdravljaController extends AutorizacijaController
         }  
 
         $this->domzdravlja = (object) $_POST;
-        if(!$this->kontrolaNaziv()){return;}
-        if(!$this->kontrolaDoktor()){return;}
-        // neću odraditi na promjeni bolnice
-        Domzdravlja::promjeniPostojeci($this->domzdravlja);
-        $this->index();
+        try {
+            $this->kontrola();
+            Domzdravlja::promjeniPostojeci($this->domzdravlja);
+            $this->index();
+        } catch (Exception $e) {
+            $this->poruka=$e->getMessage();
+            $this->promjenaView();
+        }       
     }
 
     
