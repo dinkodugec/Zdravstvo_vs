@@ -24,7 +24,9 @@ class Domzdravlja
         $izraz=$veza->prepare('
         
         select a.sifra, a.naziv, a.doktor, a.bolnica,a.ordinacija,
-        b.ime,b.prezime,b.oib,b.domzdravlja,b.lijek,b.bolestan from domzdravlja a
+        b.ime,b.prezime,b.oib,b.domzdravlja,b.lijek,b.bolestan, 
+        count(c.sifra) as ukupnopacijenata
+        from domzdravlja a
         inner join pacijent b on a.sifra =b.domzdravlja
         left join lijek c on a.sifra=c.bolest 
         group by a.sifra, b.ime, b.prezime, c.naziv;
