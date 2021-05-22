@@ -5,8 +5,11 @@
             <th>email</th>
             <th>IBAN</th>
             <th>OIB</th>
+            <th>Dom Zdravlja</th>
+            <th>Lijek</th>
+            <th>Bolestan</th>
             <th style="text-align: right;">
-            <a href="#">Dodaj novog</a>
+            <a href="<?=App::config('url')?>pacijent/novo">Dodaj novog</a>
             </th>
         </tr>
     </thead>
@@ -14,10 +17,20 @@
         <?php foreach($entiteti as $red): ?>
             <tr>
                 <td><?=$red->ime?> <?=$red->prezime?></td>
-                <td><?=$red->email?></td>
-                <td><?=$red->iban?></td>
+                <td><?=$red->domzdravlja?></td>
+                <td><?=$red->lijek?></td>
                 <td><?=$red->oib?></td>
-                <td>Promjeni Obrisi</td>
+                <td><?=$red->bolestan?></td>
+                <td>
+                <a href="<?=App::config('url')?>pacijent/promjena?sifra=<?=$red->sifra?>">
+                        <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
+                    </a>
+                    <?php if($red->ukupnogrupa==0): ?>
+                        <a href="<?=App::config('url')?>pacijent/brisanje?sifra=<?=$red->sifra?>"
+                        onclick="return confirm('Sigurno obrisati <?=Funkcije::escapeSingleQuote($red->ime . ' ' . $red->prezime) ?>?');">
+                        <i title="brisanje" style="color: red" class="fas fa-trash-alt"></i></a>
+                        <?php endif;?>
+                </td>
             </tr>    
                     
 

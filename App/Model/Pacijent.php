@@ -9,8 +9,12 @@ class Pacijent
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-           
-
+        select a.sifra, a.ime, a.prezime, a.oib, b.naziv as lijek 
+        from pacijent a 
+        inner join lijek b
+        on a.lijek = b.sifra;
+               
+              
 
         ');
         $izraz->execute(['sifra'=>$sifra]);
@@ -26,7 +30,9 @@ class Pacijent
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.ime, a.prezime, a.oib, b.naziv as lijek from pacijent a inner join lijek b
+        select a.sifra, a.ime, a.prezime, a.oib, b.naziv as lijek 
+        from pacijent a 
+        inner join lijek b
         on a.lijek = b.sifra;
         
         ');
@@ -69,9 +75,9 @@ class Pacijent
             'ime'=>$entitet->ime,
             'prezime'=>$entitet->prezime,
             'oib'=>$entitet->oib,
-            'dom_zdravlja'=>$entitet->dom_zdravlja,
-            'lijek'=>$entitet->lijek,
-            'bolestan'=>$entitet->bolestan
+            'domzdravlja'=>$entitet->domzdravlja,
+            'lijek'=>$zadnjaSifrA
+
         ]);
 
         $veza->commit();

@@ -1,5 +1,5 @@
 <form class="log-in-form" 
-    action="<?=App::config('url')?>pacijent/novo"
+    action="<?=App::config('url')?>pacijent/promjena"
     method="POST">
   <h4 class="text-center">Promjena Pacijenta</h4>
   
@@ -19,18 +19,23 @@
   <div class="grid-x grid-padding-x">
     <div class="cell">
       <label>OiB
-        <input type="OiB" name="Oib" value="<?=$entitet->OiB?>">
+        <input type="text" name="oib" value="<?=$entitet->oib?>">
       </label>
     </div>
-  </div>
-
-
   <div class="cell large-4">
   <label>Dom Zdravlja
-    <input type="text" name="dom_zdravlja" value="<?=$entitet->$dom_zdravlja?>">
+    <input type="text" name="domzdravlja" value="<?=$entitet->$domzdravlja?>">
   </label>
   </div>
 </div> 
+
+<div class="grid-x grid-padding-x">
+    <div class="cell">
+      <label>Lijek
+        <input type="text" name="lijek" value="<?=$entitet->lijek?>">
+      </label>
+    </div>
+  </div>
 
 <div class="grid-x grid-padding-x">
      <div class="cell">
