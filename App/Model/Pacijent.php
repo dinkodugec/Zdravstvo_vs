@@ -12,10 +12,9 @@ class Pacijent
         select a.sifra, a.ime, a.prezime, a.oib, b.naziv as lijek 
         from pacijent a 
         inner join lijek b
-        on a.lijek = b.sifra;
+        on a.lijek = b.sifra
+        where a.sifra=:sifra;
                
-              
-
         ');
         $izraz->execute(['sifra'=>$sifra]);
         return $izraz->fetch();
@@ -30,7 +29,7 @@ class Pacijent
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.ime, a.prezime, a.oib, b.naziv as lijek 
+        select a.sifra, a.ime, a.prezime, a.oib, b.naziv AS lijek 
         from pacijent a 
         inner join lijek b
         on a.lijek = b.sifra;
@@ -66,8 +65,8 @@ class Pacijent
         $izraz=$veza->prepare('
         
              insert into pacijent 
-             (ime, prezime, oib, dom_zdravlja, lijek, bolestan) values
-             (:ime, :prezime, :oib, :dom_zdravlja, :lijek, :bolestan)
+             (ime, prezime, oib, domzdravlja, lijek, bolestan) values
+             (:ime, :prezime, :oib, :domzdravlja, :lijek, :bolestan)
 
            
         ');
