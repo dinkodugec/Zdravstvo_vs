@@ -9,7 +9,11 @@ class Lijek
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        
+           select a.sifra, a.naziv, a.proizvodac, a.cijena 
+           b.ime, b.prezime
+           from lijek a inner join pacijent b
+           on a.sifra=b.lijek;
+
         
         ');
         $izraz->execute(['sifra'=>$sifra]);
@@ -43,15 +47,15 @@ class Lijek
         $izraz=$veza->prepare('
         
             insert into pacijent
-            (ime, prezime, oib, dom_zdravlja) values
-            (:ime, :prezime, :oib, :dom_zdravlja)
+            (ime, prezime, oib, domzdravlja) values
+            (:ime, :prezime, :oib, :domzdravlja)
             
         ');
         $izraz->execute([
             'ime'=>$entitet->ime,
             'prezime'=>$entitet->prezime,
             'oib'=>$entitet->oib,
-            'dom_zdravlja'=>$entitet->dom_zdravlja
+            'domzdravlja'=>$entitet->domzdravlja
 
         ]);
         $zadnjaSifra=$veza->lastInsertId();
@@ -63,8 +67,8 @@ class Lijek
         
         ');
         $izraz->execute([
-           // 'naziv'=>$zadnjaSifra,
-            //'bolest'=>$entitet->
+          'naziv'=>$zadnjaSifra,
+          'bolest'=>$entitet->bolest
         ]);
 
         $veza->commit();

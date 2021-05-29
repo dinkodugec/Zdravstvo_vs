@@ -4,7 +4,7 @@ class LijekController extends AutorizacijaController
 {
     private $viewDir = 'privatno'
                         . DIRECTORY_SEPARATOR
-                        . 'polaznik'
+                        . 'lijek'
                         . DIRECTORY_SEPARATOR;
     
     private $entitet=null;
@@ -67,7 +67,7 @@ class LijekController extends AutorizacijaController
             return;
         }
         Lijek::obrisiPostojeci($_GET['sifra']);
-        header('location: ' . App::config('url') . 'polaznik/index');
+        header('location: ' . App::config('url') . 'lijek/index');
        
     }
 
