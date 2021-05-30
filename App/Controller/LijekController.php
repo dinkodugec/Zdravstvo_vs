@@ -49,7 +49,7 @@ class LijekController extends AutorizacijaController
         }
         $this->entitet = (object) $_POST;
         try {
-            $this->kontrolaImePrezime();
+            $this->kontrolaNaziv();
             Lijek::promjeniPostojeci($this->entitet);
             $this->index();
         } catch (Exception $e) {
@@ -79,14 +79,12 @@ class LijekController extends AutorizacijaController
 
     
 
-    /*private function noviEntitet()
+    private function noviEntitet()
     {
         $this->entitet = new stdClass();
-        $this->entitet->ime='';
-        $this->entitet->prezime='';
-        $this->entitet->email='';
-        $this->entitet->oib='';
-        $this->entitet->brojugovora='';
+        $this->entitet->naziv='';
+        $this->entitet->bolest='';
+        $this->entitet->proizvodac='';
         $this->poruka='Unesite tražene podatke';
         $this->novoView();
     }
@@ -98,7 +96,7 @@ class LijekController extends AutorizacijaController
             'poruka'=>$this->poruka
         ]);
     }
-    */
+    
 
     private function novoView()
     {
@@ -110,37 +108,32 @@ class LijekController extends AutorizacijaController
 
     private function kontrola()
     {
-        $this->kontrolaImePrezime();
-        $this->kontrolaOib();
+        $this->kontrolaNaziv();
+        $this->kontrolaBolest();
     }
 
-    private function kontrolaImePrezime()
-    {
-        $this->kontrolaIme();
-        $this->kontrolaPrezime();
-    }
+
   
-    private function kontrolaIme()
+    private function kontrolaNaziv()
     {
-        if(strlen(trim($this->entitet->ime))==0){
-            throw new Exception('Ime obavezno');
+        if(strlen(trim($this->entitet->naziv))==0){
+            throw new Exception('Naziv obavezno');
         }
 
-        if(strlen(trim($this->entitet->ime))>50){
-            throw new Exception('Ime predugačko');
+        if(strlen(trim($this->entitet->naziv))>50){
+            throw new Exception('Naziv predugačko');
         }
     }
 
-    private function kontrolaPrezime()
+    private function kontrolaBolest()
     {
-        if(strlen(trim($this->entitet->prezime))==0){
-            throw new Exception('Prezime obavezno');
+        if(strlen(trim($this->entitet->bolest))==0){
+            throw new Exception('Bolest obavezno');
+        }
+
+        if(strlen(trim($this->entitet->bolest))>50){
+            throw new Exception('Bolest predugačko');
         }
     }
 
-    private function kontrolaOib()
-    {
-        if(!Kontrola::CheckOIB($this->entitet->oib)){
-            throw new Exception('OIB nije ispravan');
-        }
-    }
+}

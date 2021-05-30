@@ -9,7 +9,7 @@ class Lijek
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-           select a.sifra, a.naziv, a.proizvodac, a.cijena 
+           select a.sifra, a.naziv, a.proizvodac,  
            b.ime, b.prezime
            from lijek a inner join pacijent b
            on a.sifra=b.lijek;
@@ -30,7 +30,10 @@ class Lijek
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        
+        select a.sifra, a.naziv, a.proizvodac,  
+           b.ime, b.prezime
+           from lijek a inner join pacijent b
+           on a.sifra=b.lijek;
         
         ');
         $izraz->execute();
@@ -85,12 +88,14 @@ class Lijek
         
         ');
         $izraz->execute(['sifra'=>$entitet->sifra]);
-        $sifraOsoba=$izraz->fetchColumn();
+        $sifraLijek=$izraz->fetchColumn();
 
 
         $izraz=$veza->prepare('
         
-            update pacijent 
+            update pacijent
+             set ime=:ime, prezime=:prezime, oib=:oib, domzdravlja=:domzdravlja, lijek=:lijek
+             where sifra=:sifra
             
             
         ');
@@ -98,8 +103,8 @@ class Lijek
             'ime'=>$entitet->ime,
             'prezime'=>$entitet->prezime,
             'oib'=>$entitet->oib,
-            'dom_zdravlja'=>$entitet->dom_zdravlja,
-            'sifra'=>$sifraPacijent
+            'domzdravlja'=>$entitet->domzdravlja,
+            'sifra'=>$sifraLijek
             
         ]);
 
@@ -129,11 +134,11 @@ class Lijek
         $veza->beginTransaction();
         $izraz=$veza->prepare('
         
-          select lijek from pacijent where sifra=:sifra
+          select pacijent from lijek where sifra=:sifra
         
         ');
         $izraz->execute(['sifra'=>$sifra]);
-        $sifraOsoba=$izraz->fetchColumn();
+        $sifraLijek=$izraz->fetchColumn();
 
         $izraz=$veza->prepare('
         
@@ -145,10 +150,11 @@ class Lijek
 
         $izraz=$veza->prepare('
         
-            delete from lijek where sifra=:sifra
+            delete from pacijent where sifra=:sifra
         
         ');
-        $izraz->execute(['sifra'=>$sifraOsoba]);
+        $izraz->execute(['sifra'=>$sifraLijek]);
 
         $veza->commit();
     }
+}
