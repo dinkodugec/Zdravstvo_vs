@@ -106,13 +106,17 @@ insert into bolest (sifra,intervencija,naziv,pacijent) values
 (4,1,'prijelom noge',1);
 
 
-insert into lijek (sifra,naziv,bolest,proizvodac,cijena) values
-(null,'andol',3,'Galenika',null),
-(null,'astrazeneca',2,'astrazeneca ltd',null),
-(null,'pfizer',2,'pfizer gmbh',null),
-(null,'Sputnik',2,'Mother Russia doo',null),
-(null,'sumamed',4,'Pliva',null);
-
+insert into lijek (sifra,naziv,bolest,proizvodac) values
+(null,'Andol',3,'Galenika'),
+(null,'Astrazeneca',2,'Astrazeneca ltd'),
+(null,'Pfizer',2,'Pfizer gmbh'),
+(null,'Sputnik',2,'Sputnik gmbh'),
+(null,'Sumamed',4,'Pliva'),
+(null,'Panadol',6,'Bosna lijek'),
+(null,'Augementin',6,'Krka Novo Mesto'),
+(null,'Aspirin',6,'Bayer'),
+(null,'Paracetamol',6,'Belupo'),
+(null,'Efedrin',6,'Pliva');
 
  
 insert into pacijent (sifra,ime,prezime,oib,domzdravlja,lijek,bolestan) values
