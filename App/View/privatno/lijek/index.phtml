@@ -19,7 +19,7 @@
                     <a href="<?=App::config('url')?>lijek/promjena?sifra=<?=$red->sifra?>">
                         <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
                     </a>
-                    <?php if($red->ukupnogrupa==0): ?>    
+                    <?php if($red->ukupnolijekova==0): ?>    
                         <a href="<?=App::config('url')?>lijek/brisanje?sifra=<?=$red->sifra?>"
                         onclick="return confirm('Sigurno obrisati <?=Funkcije::escapeSingleQuote($red->naziv . ' ' . $red->proizvodac) ?>?');">
                         <i title="brisanje" style="color: red" class="fas fa-trash-alt"></i></a>

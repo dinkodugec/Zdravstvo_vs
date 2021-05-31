@@ -32,7 +32,7 @@ class Lijek
         
         select a.sifra, a.naziv, a.proizvodac,  
            b.ime, b.prezime
-           from lijek a inner join pacijent b
+           from lijek a inner join pacijent b as ukupnolijekova
            on a.sifra=b.lijek;
         
         ');
