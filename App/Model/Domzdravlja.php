@@ -83,7 +83,7 @@ class Domzdravlja
         ');
        
         $izraz->execute(['sifra'=>$entitet->sifra]);
-        $sifrabolnica=$izraz->fetchColumn();
+        $sifraBolnica=$izraz->fetchColumn();
 
         $izraz=$veza->prepare('
         
@@ -97,7 +97,7 @@ class Domzdravlja
             'ravnatelj'=>$entitet->ravnatelj,
             'odjel'=>$entitet->odjel,
             'doktor'=>$entitet->doktor,
-            'sifra'=>$sifrabolnica
+            'sifra'=>$sifraBolnica
         ]);
 
         $izraz=$veza->prepare('

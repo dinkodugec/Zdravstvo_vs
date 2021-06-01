@@ -83,7 +83,7 @@ class DomzdravljaController extends AutorizacijaController
         $this->entitet = new stdClass();
         $this->entitet->naziv='';
         $this->entitet->doktor='';
-        $this->entitet->bolnica='';
+        $this->entitet->bolnica='Županja';
         $this->entitet->ordinacija='';
         $this->poruka='Unesite trazene podatke';
         $this->novoView();

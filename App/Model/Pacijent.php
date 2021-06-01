@@ -97,7 +97,7 @@ class Pacijent
         ');
        
         $izraz->execute(['sifra'=>$entitet->sifra]);
-        $sifraOsoba=$izraz->fetchColumn();
+        $sifraLijek=$izraz->fetchColumn();
 
         $izraz=$veza->prepare('
 
@@ -109,8 +109,8 @@ class Pacijent
         $izraz->execute([
             'naziv'=>$entitet->naziv,
             'bolest'=>$entitet->bolest,
-            'proizvodac'=>$entitet->oib,
-            'sifraLijek'=>$entitet->sifra
+            'proizvodac'=>$entitet->proizvodac,
+            'sifra'=>$sifraLijek
             
         ]);
 

@@ -5,6 +5,7 @@
             <th>OIB</th>
             <th>Dom Zdravlja</th>
             <th>Lijek</th>
+
             <th style="text-align: right;">
             <a href="<?=App::config('url')?>pacijent/novo">Dodaj novog</a>
             </th>
@@ -17,8 +18,6 @@
                 <td><?=$red->oib?></td>
                 <td><?=$red->domzdravlja?></td>
                 <td><?=$red->lijek?></td>
-                
-                <td><?=$red->bolestan?></td>
                 <td>
                 <a href="<?=App::config('url')?>pacijent/promjena?sifra=<?=$red->sifra?>">
                         <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
