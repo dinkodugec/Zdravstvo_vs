@@ -9,7 +9,6 @@
             <th>Naziv</th>
             <th>Doktor</th>
             <th>Bolnica</th>
-            <th>Ordinacija</th>
             <th></th>
          </tr>
     </thead>
@@ -26,7 +25,6 @@
                 <td><?=$red->naziv?></td>
                 <td><?=$red->doktor?></td>
                 <td><?=$red->bolnica?></td>
-                <td><?=$red->ordinacija?></td>
                  <td>
                     <?php if($red->ukupnopacijenata==0): ?>
                         <a href="<?=App::config('url')?>domzdravlja/brisanje?sifra=<?=$red->sifra?>"

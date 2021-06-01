@@ -38,7 +38,7 @@ create table domzdravlja(
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
     doktor varchar (50) not null,
-    bolnica varchar not null,
+    bolnica int not null,
     ordinacija varchar (50) null
 );
 
@@ -47,22 +47,21 @@ create table pacijent (
     ime varchar (50) not null,
     prezime varchar (50) not null,
     oib char (11),
-    domzdravlja varchar not null,
-    lijek varchar not null,
-    bolestan boolean
+    domzdravlja int null,
+    lijek int not null
 );
 
 create table bolest (
     sifra int not null primary key auto_increment,
     intervencija int not null,
     naziv varchar (50) null,
-    pacijent varchar not null
+    pacijent int not null
 );
 
 create table intervencija (
     sifra int not null primary key auto_increment,
     vozilo int not null,
-    vozac varchar not null,
+    vozac int not null,
     vrijeme datetime null
     
 );
@@ -70,9 +69,8 @@ create table intervencija (
 create table lijek (
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
-    bolest varchar not null,
-    proizvodac varchar (50) null,
-    cijena decimal (18,2) null
+    bolest int not null,
+    proizvodac varchar (50) null
 );
 
 
@@ -85,15 +83,19 @@ alter table lijek add foreign key (bolest) references bolest (sifra);
 
 
 insert into bolnica (sifra,naziv,ravnatelj,odjel,doktor) values
-(null,'zupanja',null,'kirurgija','Ivan Ivic'),
-(null,'vukovar',null,'pedijatrija','Andrija Anic'),
-(null,'vinkovci',null,'onkologija','Ivan Horvat'),
-(null,'otok',null,'fizioterapija','Mato Matic');
+(null,'Županja',null,'kirurgija','Ivan Ivic'),
+(null,'Vukovar',null,'pedijatrija','Andrija Anic'),
+(null,'Vinkovci',null,'onkologija','Ivan Horvat'),
+(null,'Otok',null,'fizioterapija','Mato Matic');
 
  insert into domzdravlja (sifra,naziv,doktor,bolnica,ordinacija) values
- (1,'domzdravlja zupanja',1,1,'pedijatrija'),
- (2,'domzdravlja otok',2,1,'fizioterapija'),
- (3,'domzdravlja stitar',3,1,'fizioterapija');
+ (1,'Domzdravlja Županja',1,1,'Opća Praksa'),
+ (2,'Domzdravlja Otok',2,1,'Opća Praksa'),
+ (3,'Domzdravlja Štitar',1,1,'Pedijatrija'),
+ (4,'Domzdravlja Cerna',1,1,'Pedijatrija'),
+ (5,'Domzdravlja Nuštar',3,1,'Opća Praksa'),
+ (6,'Domzdravlja Rokovci',3,1,'Opća Praksa');
+ 
  
 insert into intervencija (sifra,vozilo,vozac,vrijeme) values
 (1,1,1,null);
@@ -103,7 +105,9 @@ insert into bolest (sifra,intervencija,naziv,pacijent) values
 (1,1,'prehlada',1),
 (2,1,'COVID infekcija',1),
 (3,1,'gnojna angina',1),
-(4,1,'prijelom noge',1);
+(4,1,'prijelom noge',1),
+(5,1,'upala',2),
+(6,1,'temperatura',2);
 
 
 insert into lijek (sifra,naziv,bolest,proizvodac) values
@@ -118,13 +122,17 @@ insert into lijek (sifra,naziv,bolest,proizvodac) values
 (null,'Paracetamol',6,'Belupo'),
 (null,'Efedrin',6,'Pliva');
 
+
+
  
-insert into pacijent (sifra,ime,prezime,oib,domzdravlja,lijek,bolestan) values
-(null,'Ivan','Maric',12345678912,2,2,true),
-(null,'Ivana','Mamic',12345678912,1,3,true),
-(null,'Ivano','Maric',12345678912,1,4,true),
-(null,'Ivanka','Maricic',12345678912,1,2,true),
-(null,'Josip','Markovic',12345678912,1,2,true);
+insert into pacijent (sifra,ime,prezime,oib,domzdravlja,lijek) values
+(null,'Ivan','Maric',12345678912,2,2),
+(null,'Ivana','Mamic',12345678912,1,3),
+(null,'Ivano','Maric',12345678912,1,4),
+(null,'Ivanka','Maricic',12345678912,1,2),
+(null,'Josip','Markovic',12345678912,1,2),
+(null,'Ivan','Markov',12345678912,3,2);
+
 
 # lozinka je a
 insert into operater values(null,'edunova@edunova.com',
@@ -137,4 +145,6 @@ insert into operater values(null,'oper@edunova.hr',
 'Operater','Edunova','oper');
 
 
-select * from bolnica ;
+
+
+

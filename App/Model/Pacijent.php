@@ -68,8 +68,8 @@ class Pacijent
         $izraz=$veza->prepare('
         
              insert into pacijent 
-             (ime, prezime, oib, domzdravlja, lijek, bolestan) values
-             (:ime, :prezime, :oib, :domzdravlja, :lijek, :bolestan)
+             (ime, prezime, oib, domzdravlja, lijek) values
+             (:ime, :prezime, :oib, :domzdravlja, :lijek)
 
            
         ');

@@ -23,8 +23,8 @@ class Domzdravlja
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.naziv, a.doktor, a.bolnica,a.ordinacija,
-        b.ime,b.prezime,b.oib,b.domzdravlja,b.lijek,b.bolestan, 
+        select a.sifra, a.naziv, a.doktor, a.bolnica,
+        b.ime,b.prezime,b.oib,b.domzdravlja,b.lijek, 
         count(c.sifra) as ukupnopacijenata
         from domzdravlja a
         inner join pacijent b on a.sifra =b.domzdravlja
@@ -44,8 +44,8 @@ class Domzdravlja
         $izraz=$veza->prepare('
         
             insert into pacijent 
-            (ime, prezime, oib, domzdravlja, lijek, bolestan) values
-            (:ime, :prezime, :oib, :domzdravlja, :lijek, :bolestan )
+            (ime, prezime, oib, domzdravlja, lijek) values
+            (:ime, :prezime, :oib, :domzdravlja, :lijek)
             
         ');
         $izraz->execute([
@@ -54,7 +54,6 @@ class Domzdravlja
             'oib'=>$domzdravlja->oib,
             'domzdravlja'=>$domzdravlja->domzdravlja,
             'lijek'=>$domzdravlja->lijek,
-            'bolestan'=>$domzdravlja->bolestan
         ]);
         $zadnjaSifra=$veza->lastInsertId();
         $izraz=$veza->prepare('
