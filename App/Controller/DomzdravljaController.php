@@ -7,29 +7,29 @@ class DomzdravljaController extends AutorizacijaController
                         . 'domzdravlja'
                         . DIRECTORY_SEPARATOR;
 
-    private $domzdravlja=null;
+    private $entitet=null;
     private $poruka='';                 
 
 
     public function index()
     {
         $this->view->render($this->viewDir . 'index',[
-            'domovizdravlja'=>Domzdravlja::ucitajSve()
+            'entiteti'=>Domzdravlja::ucitajSve()
         ]);
     }
 
     public function novo()
     {
         if($_SERVER['REQUEST_METHOD']==='GET'){
-            $this->noviDomzdravlja();
+            $this->noviEntitet();
             return;
         }
 
-        $this->domzdravlja = (object) $_POST;
+        $this->entitet = (object) $_POST;
 
         try {
             $this->kontrola();
-            Domzdravlja::dodajNovi($this->domzdravlja);
+            Domzdravlja::dodajNovi($this->entitet);
             $this->index();
         } catch (Exception $e) {
             $this->poruka=$e->getMessage();
@@ -47,16 +47,16 @@ class DomzdravljaController extends AutorizacijaController
                return;
             }
         
-            $this->dom_zdravlja = Domzdravlja::ucitaj($_GET['sifra']);
+            $this->entitet = Domzdravlja::ucitaj($_GET['sifra']);
             $this->poruka='Promjenite zeljene podatke';
             $this->promjenaView();
             return;
         }  
 
-        $this->domzdravlja = (object) $_POST;
+        $this->entitet = (object) $_POST;
         try {
             $this->kontrola();
-            Domzdravlja::promjeniPostojeci($this->domzdravlja);
+            Domzdravlja::promjeniPostojeci($this->entitet);
             $this->index();
         } catch (Exception $e) {
             $this->poruka=$e->getMessage();
@@ -78,13 +78,13 @@ class DomzdravljaController extends AutorizacijaController
     }
 
 
-    private function noviDomzdravlja()
+    private function noviEntitet()
     {
-        $this->domzdravlja = new stdClass();
-        $this->domzdravlja->naziv='';
-        $this->domzdravlja->doktor='';
-        $this->domzdravlja->doktor='';
-        $this->domzdravlja->ordinacija='';
+        $this->entitet = new stdClass();
+        $this->entitet->naziv='';
+        $this->entitet->doktor='';
+        $this->entitet->bolnica='';
+        $this->entitet->ordinacija='';
         $this->poruka='Unesite trazene podatke';
         $this->novoView();
     }
@@ -92,7 +92,7 @@ class DomzdravljaController extends AutorizacijaController
     private function promjenaView()
     {
         $this->view->render($this->viewDir . 'promjena',[
-            'domzdravlja'=>$this->domzdravlja,
+            'entitet'=>$this->entitet,
             'poruka'=>$this->poruka
 
         ]);
@@ -102,7 +102,7 @@ class DomzdravljaController extends AutorizacijaController
     private function novoView()
     {
         $this->view->render($this->viewDir . 'novo',[
-            'domzdravlja'=>$this->domzdravlja,
+            'entitet'=>$this->entitet,
             'poruka'=>$this->poruka
 
         ]);
@@ -118,11 +118,11 @@ class DomzdravljaController extends AutorizacijaController
 
     private function kontrolaNaziv()
     {
-        if(strlen(trim($this->domzdravlja->naziv))==0){
+        if(strlen(trim($this->entitet->naziv))==0){
             throw new Exception('Naziv obavezno');
         }
 
-        if(strlen(trim($this->domzdravlja->naziv))>50){
+        if(strlen(trim($this->entitet->naziv))>50){
             throw new Exception('Naziv predugačak');
         }
     }

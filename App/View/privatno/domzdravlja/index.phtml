@@ -1,40 +1,40 @@
 
-<div class="table-scroll">
+
 <table>
     <thead>
          <tr>
          <th>
-            <a href="<?=App::config('url')?>domzdravlja/novo">Dodaj Novi</a>
-            </th>
+           </th>
             <th>Naziv</th>
             <th>Doktor</th>
             <th>Bolnica</th>
-            <th></th>
+            <th>Ordinacija</th>
+            <th style="text-align: right;">
+            <a href="<?=App::config('url')?>domzdravlja/novo">Dodaj novog</a>
+            </th>
          </tr>
     </thead>
 
-<tbody>
-       <?php foreach($domovizdravlja as $red): ?>
+  <tbody>
+       <?php foreach($entiteti as $red): ?>
           <tr>
-          <td>
-                    <a href="<?=App::config('url')?>domzdravlja/promjena?sifra=<?=$red->sifra?>">
-                        <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
-                    </a>
-                    
-                </td>
                 <td><?=$red->naziv?></td>
                 <td><?=$red->doktor?></td>
                 <td><?=$red->bolnica?></td>
+                <td><?=$red->ordinacija?></td>
                  <td>
+                 <a href="<?=App::config('url')?>domzdravlja/promjena?sifra=<?=$red->sifra?>">
+                        <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
                     <?php if($red->ukupnopacijenata==0): ?>
                         <a href="<?=App::config('url')?>domzdravlja/brisanje?sifra=<?=$red->sifra?>"
                         onclick="return confirm('Sigurno obrisati<?=Funkcije::escapeSingleQuote($red->naziv) ?>?');">
                         <i title="brisanje" style="color: red" class="fas fa-trash-alt"></i></a>
-                        <?php endif;?></td>
+                        <?php endif;?>
+                </td>
               </tr>
          
        <?php endforeach; ?>
-</tbody>
+   </tbody>
 </table>
-</div>
+
 

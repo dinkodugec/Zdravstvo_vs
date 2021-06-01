@@ -23,8 +23,8 @@ class Domzdravlja
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.naziv, a.doktor, a.bolnica,
-        b.ime,b.prezime,b.oib,b.domzdravlja,b.lijek, 
+        select a.sifra, a.naziv, a.doktor, a.bolnica, a.ordinacija,
+        b.ime, b.prezime,b.oib,b.domzdravlja,b.lijek, 
         count(c.sifra) as ukupnopacijenata
         from domzdravlja a
         inner join pacijent b on a.sifra =b.domzdravlja
@@ -37,7 +37,7 @@ class Domzdravlja
         return $izraz->fetchAll();
     }
 
-    public static function dodajNovi($domzdravlja)
+    public static function dodajNovi($entitet)
     {
         $veza = DB::getInstanca();
         $veza->beginTransaction();
@@ -49,30 +49,30 @@ class Domzdravlja
             
         ');
         $izraz->execute([
-            'ime'=>$domzdravlja->ime,
-            'prezime'=>$domzdravlja->prezime,
-            'oib'=>$domzdravlja->oib,
-            'domzdravlja'=>$domzdravlja->domzdravlja,
-            'lijek'=>$domzdravlja->lijek,
+            'ime'=>$entitet->ime,
+            'prezime'=>$entitet->prezime,
+            'domzdravlja'=>$entitet->domzdravlja,
+            'lijek'=>$entitet->lijek,
+            'oib'=>$entitet->oib
         ]);
         $zadnjaSifra=$veza->lastInsertId();
         $izraz=$veza->prepare('
         
             insert into domzdravlja 
-            (pacijent, oib) values
-            (:pacijent, :oib)
+            (naziv, doktor, bolnica,ordinacija) values
+            (:naziv, :doktor, :bolnica, :ordinacija)
         
         ');
         $izraz->execute([
             'pacijent'=>$zadnjaSifra,
-            'oib'=>$domzdravlja->oib
+            'oib'=>$entitet->oib
         ]);
 
         $veza->commit();
     }
 
 
-    public static function promjeniPostojeci($domzdravlja)
+    public static function promjeniPostojeci($entitet)
     {
         $veza = DB::getInstanca();
         $veza->beginTransaction();
@@ -82,7 +82,7 @@ class Domzdravlja
             
         ');
        
-        $izraz->execute(['sifra'=>$domzdravlja->sifra]);
+        $izraz->execute(['sifra'=>$entitet->sifra]);
         $sifrabolnica=$izraz->fetchColumn();
 
         $izraz=$veza->prepare('
@@ -93,10 +93,10 @@ class Domzdravlja
             
         ');
         $izraz->execute([
-            'naziv'=>$domzdravlja->naziv,
-            'ravnatelj'=>$domzdravlja->ravnatelj,
-            'odjel'=>$domzdravlja->odjel,
-            'doktor'=>$domzdravlja->doktor,
+            'naziv'=>$entitet->naziv,
+            'ravnatelj'=>$entitet->ravnatelj,
+            'odjel'=>$entitet->odjel,
+            'doktor'=>$entitet->doktor,
             'sifra'=>$sifrabolnica
         ]);
 
@@ -108,8 +108,8 @@ class Domzdravlja
     
         ');
         $izraz->execute([
-            'sifra'=>$domzdravlja->sifra,
-            'naziv'=>$domzdravlja->naziv
+            'sifra'=>$entitet->sifra,
+            'naziv'=>$entitet->naziv
         ]);
 
 
