@@ -13,7 +13,7 @@ class Bolnica
               select * from bolnica where sifra = :sifra
 
         ');
-        $izraz->execute();
+        $izraz->execute(['sifra'=>$sifra]);
         return $izraz->fetch();
     }
 

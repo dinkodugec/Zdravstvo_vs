@@ -2,12 +2,9 @@
     <thead>
         <tr>
             <th>Ime i prezime pacijenta</th>
-            <th>email</th>
-            <th>IBAN</th>
             <th>OIB</th>
             <th>Dom Zdravlja</th>
             <th>Lijek</th>
-            <th>Bolestan</th>
             <th style="text-align: right;">
             <a href="<?=App::config('url')?>pacijent/novo">Dodaj novog</a>
             </th>
@@ -17,9 +14,10 @@
         <?php foreach($entiteti as $red): ?>
             <tr>
                 <td><?=$red->ime?> <?=$red->prezime?></td>
+                <td><?=$red->oib?></td>
                 <td><?=$red->domzdravlja?></td>
                 <td><?=$red->lijek?></td>
-                <td><?=$red->oib?></td>
+                
                 <td><?=$red->bolestan?></td>
                 <td>
                 <a href="<?=App::config('url')?>pacijent/promjena?sifra=<?=$red->sifra?>">
