@@ -31,9 +31,10 @@ class Lijek
         $izraz=$veza->prepare('
         
         select a.sifra, a.naziv, a.proizvodac,  
-           b.ime, b.prezime
-           from lijek a inner join pacijent b as ukupnolijekova
-           on a.sifra=b.lijek;
+        b.ime, b.prezime AS ukupnopacijenata
+        from lijek a inner join pacijent b  
+        on a.sifra=b.lijek;
+     
         
         ');
         $izraz->execute();
