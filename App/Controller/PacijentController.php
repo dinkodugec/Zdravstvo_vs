@@ -82,7 +82,6 @@ class PacijentController extends AutorizacijaController
         $this->entitet->prezime='';
         $this->entitet->oib='';
         $this->entitet->domzdravlja='';
-        $this->entitet->bolestan='';
         $this->poruka='Unesite trazene podatke';
         $this->novoView();
     }
