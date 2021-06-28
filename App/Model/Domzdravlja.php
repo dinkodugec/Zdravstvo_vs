@@ -6,10 +6,10 @@ class Domzdravlja
    public static function ucitaj($sifra)
     {
 
-        $veza = DB::getInstanca();
+        $veza = DB::getInstanca(); 
         $izraz=$veza->prepare('
         
-            select * from domzdravlja where sifra=:sifra
+            select * from domzdravlja where sifra=:sifra 
         
         ');
         $izraz->execute(['sifra'=>$sifra]);

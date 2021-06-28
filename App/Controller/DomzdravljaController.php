@@ -20,7 +20,7 @@ class DomzdravljaController extends AutorizacijaController
 
     public function novo()
     {
-        if($_SERVER['REQUEST_METHOD']==='GET'){
+        if($_SERVER['REQUEST_METHOD']==='GET'){ // PROVJERAVA DAL JE UPIT STIGAO PREKO URL ili get metodom
             $this->noviEntitet();
             return;
         }
@@ -80,8 +80,8 @@ class DomzdravljaController extends AutorizacijaController
 
     private function noviEntitet()
     {
-        $this->entitet = new stdClass();
-        $this->entitet->naziv='';
+        $this->entitet = new stdClass(); // ugrađena klasa koja se ugrađena u php, praklasa
+        $this->entitet->naziv='';   // blank objekt
         $this->entitet->doktor='';
         $this->entitet->bolnica='Županja';
         $this->entitet->ordinacija='';

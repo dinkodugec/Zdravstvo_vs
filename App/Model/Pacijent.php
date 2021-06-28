@@ -29,12 +29,12 @@ class Pacijent
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.ime, a.prezime, b.naziv  AS ukupnodomovazdravlja
+        select a.sifra, a.ime, a.prezime, b.naziv  
         from pacijent a 
-        inner join domzdravlja b
+        join domzdravlja b
         on a.domzdravlja = b.sifra
         left join lijek c on a.lijek=c.sifra
-         group by ime, prezime;
+         group by a.ime, a.prezime;
        
         
         ');
