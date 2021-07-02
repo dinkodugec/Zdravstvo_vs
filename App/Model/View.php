@@ -12,11 +12,11 @@ class View
     public function render($stranicaZaRender,$parametri=[])
     {
         //print_r($parametri);
-        ob_start(); // output buffer
+        ob_start(); // output buffer  keširanje, privremeno nesto pohranjuješ
         extract($parametri);
         include BP_APP . 'view' . DIRECTORY_SEPARATOR . 
         $stranicaZaRender . '.phtml';
-        $sadrzaj = ob_get_clean();
+        $sadrzaj = ob_get_clean();  // ona vraca iz memorije
         $podnozjePodaci=$this->podnozjePodaci();
         include BP_APP . 'view' . DIRECTORY_SEPARATOR .
         $this->predlozak . '.phtml';

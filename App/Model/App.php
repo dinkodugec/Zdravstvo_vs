@@ -3,11 +3,11 @@
 // https://medium.com/@noufel.gouirhate/create-your-own-mvc-framework-in-php-af7bd1f0ca19
 class App
 {
-    public static function start()
+    public static function start() // koristimo public static function kad unutar nje stvaramo objekte
     {
         $ruta = Request::getRuta();
        //echo $ruta;
-       $djelovi=explode('/',$ruta);
+       $djelovi=explode('/',$ruta);   //explode od stringa radi array a implode sastavlja string od arraya
        //print_r($djelovi);
        $klasa='';
        if(!isset($djelovi[1]) || $djelovi[1]==''){
@@ -16,7 +16,7 @@ class App
            $klasa=ucfirst($djelovi[1]);
        }
        $klasa.='Controller';
-
+        
        //echo $klasa;
 
        $funkcija='';
