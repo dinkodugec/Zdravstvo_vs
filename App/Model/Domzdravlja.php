@@ -23,9 +23,10 @@ class Domzdravlja
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.naziv ,b.domzdravlja, b.ime, b.prezime 
+        select a.naziv, a.mjesto, count(b.sifra) as ukupnopacijenata
         from domzdravlja a
         left join pacijent b on a.sifra =b.domzdravlja
+        group by a.naziv ,b.domzdravlja;
        
         
         ');
@@ -50,16 +51,15 @@ class Domzdravlja
         $izraz=$veza->prepare('
         
             insert into domzdravlja 
-            (naziv, doktor, bolnica,ordinacija) values
-            (:naziv, :doktor, :bolnica, :ordinacija)
+            (naziv, mjesto, bolnica) values
+            (:naziv, :mjesto, :bolnica, )
         
         ');
 
         $izraz->execute([
             'naziv'=>$entitet->naziv,
-            'doktor'=>$entitet->doktor,
+            'mjesto'=>$entitet->mjesto,
             'bolnica'=>$entitet->bolnica,
-            'ordinacija'=>$entitet->ordinacija,
     
         ]);
 

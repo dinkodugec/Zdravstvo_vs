@@ -82,9 +82,8 @@ class DomzdravljaController extends AutorizacijaController
     {
         $this->entitet = new stdClass(); // ugrađena klasa koja se ugrađena u php, praklasa
         $this->entitet->naziv='';   // blank objekt
-        $this->entitet->doktor='';
+        $this->entitet->mjesto='';
         $this->entitet->bolnica='';
-        $this->entitet->ordinacija='';
         $this->poruka='Unesite trazene podatke';
         $this->novoView();
     }
@@ -113,7 +112,7 @@ class DomzdravljaController extends AutorizacijaController
     private function kontrola()
     {
         $this->kontrolaNaziv();
-        $this->kontrolaDoktor();
+        $this->kontrolaMjesto();
     }
 
     private function kontrolaNaziv()
@@ -127,14 +126,14 @@ class DomzdravljaController extends AutorizacijaController
         }
     }
   
-    private function kontrolaDoktor()
+    private function kontrolaMjesto()
     {
-        if(strlen(trim($this->entitet->doktor))==0){
-            throw new Exception('Doktor obavezno');
+        if(strlen(trim($this->entitet->mjesto))==0){
+            throw new Exception('Mjesto obavezno');
         }
 
-        if(strlen(trim($this->entitet->doktor))>50){
-            throw new Exception('Doktor predugačak');
+        if(strlen(trim($this->entitet->mjesto))>50){
+            throw new Exception('Mjesto predugačak');
         }
     }
 

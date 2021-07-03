@@ -6,9 +6,8 @@
          <th>
            </th>
             <th>Naziv</th>
-            <th>Doktor</th>
+            <th>Mjesto</th>
             <th>Bolnica</th>
-            <th>Ordinacija</th>
             <th style="text-align: right;">
             <a href="<?=App::config('url')?>domzdravlja/novo">Dodaj novog</a>
             </th>
@@ -19,9 +18,8 @@
        <?php foreach($entiteti as $red): ?>
           <tr>
                 <td><?=$red->naziv?></td>
-                <td><?=$red->doktor?></td>
+                <td><?=$red->mjesto?></td>
                 <td><?=$red->bolnica?></td>
-                <td><?=$red->ordinacija?></td>
                  <td>
                  <a href="<?=App::config('url')?>domzdravlja/promjena?sifra=<?=$red->sifra?>">
                         <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
