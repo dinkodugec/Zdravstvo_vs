@@ -128,10 +128,10 @@ insert into lijek (sifra,naziv,bolest,proizvodac) values
 insert into pacijent (sifra,ime,prezime,oib,domzdravlja,lijek) values
 (null,'Ivan','Maric',12345678912,2,2),
 (null,'Ivana','Mamic',12345678912,1,3),
-(null,'Ivano','Maric',12345678912,1,4),
-(null,'Ivanka','Maricic',12345678912,1,2),
-(null,'Josip','Markovic',12345678912,1,2),
-(null,'Ivan','Markov',12345678912,3,2);
+(null,'Ivano','Maric',12345678912,3,4),
+(null,'Ivanka','Maricic',12345678912,6,2),
+(null,'Josip','Markovic',12345678912,5,2),
+(null,'Ivan','Markov',12345678912,4,2);
 
 
 # lozinka je a

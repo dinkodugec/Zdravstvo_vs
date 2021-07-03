@@ -23,14 +23,10 @@ class Domzdravlja
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.naziv, a.doktor, a.bolnica, a.ordinacija,
-        b.ime, b.prezime,b.oib,b.domzdravlja,b.lijek, 
-        count(c.sifra) as ukupnopacijenata
+        select a.naziv ,b.domzdravlja, b.ime, b.prezime 
         from domzdravlja a
-        inner join pacijent b on a.sifra =b.domzdravlja
-        left join lijek c on a.sifra=c.bolest 
-        group by a.sifra, b.ime, b.prezime, c.naziv;
-
+        left join pacijent b on a.sifra =b.domzdravlja
+       
         
         ');
         $izraz->execute();
@@ -39,6 +35,7 @@ class Domzdravlja
 
     public static function dodajNovi($entitet)
     {
+        try {
         $veza = DB::getInstanca();
         $veza->beginTransaction();
         $izraz=$veza->prepare('
@@ -47,15 +44,9 @@ class Domzdravlja
             (ime, prezime, oib, domzdravlja, lijek) values
             (:ime, :prezime, :oib, :domzdravlja, :lijek)
             
-        ');
-        $izraz->execute([
-            'ime'=>$entitet->ime,
-            'prezime'=>$entitet->prezime,
-            'domzdravlja'=>$entitet->domzdravlja,
-            'lijek'=>$entitet->lijek,
-            'oib'=>$entitet->oib
-        ]);
-        $zadnjaSifra=$veza->lastInsertId();
+        '); 
+        
+       $zadnjaSifra=$veza->lastInsertId(); 
         $izraz=$veza->prepare('
         
             insert into domzdravlja 
@@ -63,12 +54,24 @@ class Domzdravlja
             (:naziv, :doktor, :bolnica, :ordinacija)
         
         ');
+
         $izraz->execute([
-            'pacijent'=>$zadnjaSifra,
-            'oib'=>$entitet->oib
+            'naziv'=>$entitet->naziv,
+            'doktor'=>$entitet->doktor,
+            'bolnica'=>$entitet->bolnica,
+            'ordinacija'=>$entitet->ordinacija,
+    
         ]);
 
+        
+        $izraz->execute([
+            'pacijent'=>$zadnjaSifra
+        ]); 
+
         $veza->commit();
+    } catch(PDOException $e) {
+        echo $e->getMessage();
+      }
     }
 
 
