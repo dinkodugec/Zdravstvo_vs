@@ -37,9 +37,8 @@ create table bolnica(
 create table domzdravlja(
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
-    doktor varchar (50) not null,
-    bolnica int not null,
-    ordinacija varchar (50) null
+    mjesto varchar (50) not null,
+    bolnica int not null
 );
 
 create table pacijent (
@@ -88,13 +87,13 @@ insert into bolnica (sifra,naziv,ravnatelj,odjel,doktor) values
 (null,'Vinkovci',null,'onkologija','Ivan Horvat'),
 (null,'Otok',null,'fizioterapija','Mato Matic');
 
- insert into domzdravlja (sifra,naziv,doktor,bolnica,ordinacija) values
- (1,'Domzdravlja Županja',1,1,'Opća Praksa'),
- (2,'Domzdravlja Otok',2,1,'Opća Praksa'),
- (3,'Domzdravlja Štitar',1,1,'Pedijatrija'),
- (4,'Domzdravlja Cerna',1,1,'Pedijatrija'),
- (5,'Domzdravlja Nuštar',3,1,'Opća Praksa'),
- (6,'Domzdravlja Rokovci',3,1,'Opća Praksa');
+ insert into domzdravlja (sifra,naziv,mjesto,bolnica) values
+ (1,'Domzdravlja Županja','Županja',1),
+ (2,'Domzdravlja Otok','Otok',3),
+ (3,'Domzdravlja Štitar','Štitar',1),
+ (4,'Domzdravlja Cerna','Cerna',1),
+ (5,'Domzdravlja Nuštar','Nuštar',3),
+ (6,'Domzdravlja Rokovci','Rokovci',2);
  
  
 insert into intervencija (sifra,vozilo,vozac,vrijeme) values
