@@ -38,7 +38,7 @@ create table domzdravlja(
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
     mjesto varchar (50) not null,
-    bolnica int not null
+    bolnica int null
 );
 
 create table pacijent (

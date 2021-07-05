@@ -13,13 +13,20 @@
 
   <div class="grid-x grid-padding-x">
   <div class="cell large-4">
-  <label>Doktor
+  <label>Mjesto
     <input type="text" name="mjesto" value="<?=$entitet->mjesto?>">
   </label>
   </div>
 <div class="cell large-4">
   <label>Bolnica
-    <input type="text" name="bolnica" value="<?=$entitet->bolnica?>">
+    <!-- <input type="text" name="bolnica" value="<?=$entitet->bolnica?>"> -->
+    <select name="bolnica" >
+    <?php
+    foreach ($bolnice as $bolnica):
+      ?>
+      <option value="<?=$bolnica->sifra?>"> <?=$bolnica->naziv ?></option>
+      <?php endforeach; ?>
+    </select>
   </label>
   </div>
 

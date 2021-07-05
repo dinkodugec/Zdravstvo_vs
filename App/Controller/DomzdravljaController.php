@@ -92,7 +92,8 @@ class DomzdravljaController extends AutorizacijaController
     {
         $this->view->render($this->viewDir . 'promjena',[
             'entitet'=>$this->entitet,
-            'poruka'=>$this->poruka
+            'poruka'=>$this->poruka,
+            'bolnice' => $this->getBolnice(),
 
         ]);
     }
@@ -100,12 +101,27 @@ class DomzdravljaController extends AutorizacijaController
 
     private function novoView()
     {
-        $this->view->render($this->viewDir . 'novo',[
+         $this->view->render($this->viewDir . 'novo',[
             'entitet'=>$this->entitet,
-            'poruka'=>$this->poruka
-
+            'poruka'=>$this->poruka,
+            'bolnice' => $this->getBolnice(),
         ]);
     }
+
+    private function getBolnice()
+    {
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+        select naziv, sifra
+        from bolnica;
+       
+        
+        ');
+        $izraz->execute();
+        return $izraz->fetchAll();
+    }
+
 
    
     

@@ -20,6 +20,7 @@ class Domzdravlja
 
     public static function ucitajSve() 
     {
+       
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
@@ -39,39 +40,50 @@ class Domzdravlja
         try {
         $veza = DB::getInstanca();
         $veza->beginTransaction();
-        $izraz=$veza->prepare('
+        /*$izraz=$veza->prepare('
         
             insert into pacijent 
             (ime, prezime, oib, domzdravlja, lijek) values
             (:ime, :prezime, :oib, :domzdravlja, :lijek)
             
         '); 
-        
-       $zadnjaSifra=$veza->lastInsertId(); 
-        $izraz=$veza->prepare('
+
+        $izraz->execute([
+            'ime'=>$entitet->ime,
+            'prezime'=>$entitet->prezime,
+            'oib'=>$entitet->oib,
+            'domzdravlja'=>$entitet->domzdravlja,
+            'lijek'=>$entitet->lijek
+         ]);
+        */
+          //$zadnjaSifra=$veza->lastInsertId(); 
+          $izraz=$veza->prepare('
         
             insert into domzdravlja 
             (naziv, mjesto, bolnica) values
-            (:naziv, :mjesto, :bolnica, )
+            (:naziv, :mjesto, :bolnica)
         
         ');
 
         $izraz->execute([
             'naziv'=>$entitet->naziv,
             'mjesto'=>$entitet->mjesto,
-            'bolnica'=>$entitet->bolnica,
+            'bolnica'=>$entitet->bolnica
     
         ]);
 
         
-        $izraz->execute([
-            'pacijent'=>$zadnjaSifra
-        ]); 
+       /* $izraz->execute([
+            'pacijent'=>$zadnjaSifra,
+            
+        ]); */
 
         $veza->commit();
+        
     } catch(PDOException $e) {
-        echo $e->getMessage();
+         echo "<br>" . $e->getMessage();
       }
+
     }
 
 
