@@ -24,7 +24,15 @@
     </div>
 <div class="cell large-6">
   <label>Dom Zdravlja
-    <input type="text" name="domzdravlja" value="<?=$entitet->domzdravlja?>">
+    <!-- <input type="text" name="domzdravlja" value="<?=$entitet->domzdravlja?>"> -->
+    <select name="domzdravlja" >
+    <option value="">-- Odaberi Dom Zdravlja --</option>
+    <?php
+    foreach ($domovizdravlja as $domzdravlja):
+      ?>
+      <option value="<?=$domzdravlja->sifra?>"> <?=$domzdravlja->naziv ?></option>
+      <?php endforeach; ?>
+    </select>
   </label>
   </div>
 </div> 
@@ -32,7 +40,16 @@
 <div class="grid-x grid-padding-x">
     <div class="cell large-6">
       <label>Lijek
-        <input type="text" name="lijek" value="<?=$entitet->lijek?>">
+        
+        <!-- <input type="text" name="lijek" value="<?=$entitet->lijek?>"> -->
+        <select name="lijek" >
+    <option value="">-- Odaberi Lijek --</option>
+    <?php
+    foreach ($lijekovi as $lijek):
+      ?>
+      <option value="<?=$lijek->sifra?>"> <?=$lijek->naziv ?></option>
+      <?php endforeach; ?>
+    </select>
       </label>
     </div>
 

@@ -9,10 +9,8 @@ class Pacijent
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.ime, a.prezime, a.oib, b.naziv as lijek 
-        from pacijent a 
-        inner join lijek b
-        on a.lijek = b.sifra
+        select a.* 
+        from pacijent as a
         where a.sifra=:sifra;
                
         ');
@@ -29,7 +27,7 @@ class Pacijent
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.ime, a.prezime, b.naziv  
+        select a.*, b.naziv  
         from pacijent a 
         join domzdravlja b
         on a.domzdravlja = b.sifra
@@ -48,23 +46,23 @@ class Pacijent
     public static function dodajNovi($entitet)
     {
         $veza = DB::getInstanca();
-        $veza->beginTransaction();
-        $izraz=$veza->prepare('
+        $veza->beginTransaction(); 
+       /*  $izraz=$veza->prepare('
         
              insert into lijek 
              (naziv, bolest, proizvodac,cijena) values
              (:naziv, :bolest, :proizvodac, :cijena)
 
            
-        ');
-        $izraz->execute([
+        '); */
+       /*  $izraz->execute([
             'naziv'=>$entitet->naziv,
             'bolest'=>$entitet->bolest,
             'proizvodac'=>$entitet->proizvodac,
             'cijena'=>$entitet->cijena
         ]);
-
-        $zadnjaSifrA=$veza->lastInsertId();
+ */ 
+       /*  $zadnjaSifrA=$veza->lastInsertId(); */
         $izraz=$veza->prepare('
         
              insert into pacijent 
@@ -78,7 +76,7 @@ class Pacijent
             'prezime'=>$entitet->prezime,
             'oib'=>$entitet->oib,
             'domzdravlja'=>$entitet->domzdravlja,
-            'lijek'=>$zadnjaSifrA
+            'lijek'=>$entitet->lijek,
 
         ]);
 
@@ -90,16 +88,16 @@ class Pacijent
     {
         $veza = DB::getInstanca();
         $veza->beginTransaction();
-        $izraz=$veza->prepare('
+        /* $izraz=$veza->prepare('
         
             select lijek from pacijent where sifra=:sifra
             
-        ');
+        '); */
        
-        $izraz->execute(['sifra'=>$entitet->sifra]);
-        $sifraLijek=$izraz->fetchColumn();
+        /* $izraz->execute(['sifra'=>$entitet->sifra]);
+        $sifraLijek=$izraz->fetchColumn(); */
 
-        $izraz=$veza->prepare('
+        /* $izraz=$veza->prepare('
 
         update lijek
         set naziv=:naziv, bolest=:bolest, proizvodac=:proizvodac
@@ -113,17 +111,21 @@ class Pacijent
             'sifra'=>$sifraLijek
             
         ]);
-
+ */
         $izraz=$veza->prepare('
         
             update pacijent
-            set oib=:oib
+            set oib=:oib, ime=:ime, prezime=:prezime, domzdravlja=:domzdravlja, lijek=:lijek
             where sifra=:sifra
     
         ');
         $izraz->execute([
             'sifra'=>$entitet->sifra,
-            'oib'=>$entitet->oib
+            'oib'=>$entitet->oib,
+            'ime'=>$entitet->ime,
+            'prezime'=>$entitet->prezime,
+            'domzdravlja'=>$entitet->domzdravlja,
+            'lijek'=>$entitet->lijek
         ]);
 
 

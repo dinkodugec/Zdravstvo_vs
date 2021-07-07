@@ -88,9 +88,13 @@ class PacijentController extends AutorizacijaController
 
     private function promjenaView()
     {
+       
         $this->view->render($this->viewDir . 'promjena',[
             'entitet'=>$this->entitet,
-            'poruka'=>$this->poruka
+            'poruka'=>$this->poruka,
+            'lijekovi'=>$this->getLijekovi(),
+            'domovizdravlja'=>$this->getDomoveZdravlja(),
+
 
         ]);
     }
@@ -101,9 +105,39 @@ class PacijentController extends AutorizacijaController
     {
         $this->view->render($this->viewDir . 'novo',[
             'entitet'=>$this->entitet,
-            'poruka'=>$this->poruka
+            'poruka'=>$this->poruka,
+            'lijekovi'=>$this->getLijekovi(),
+            'domovizdravlja'=>$this->getDomoveZdravlja(),
 
         ]);
+    }
+
+    private function getLijekovi()
+    {
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+        select naziv, sifra
+        from lijek;
+       
+        
+        ');
+        $izraz->execute();
+        return $izraz->fetchAll();
+    }
+
+    private function getDomoveZdravlja()
+    {
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+        select naziv, sifra
+        from domzdravlja;
+       
+        
+        ');
+        $izraz->execute();
+        return $izraz->fetchAll();
     }
 
 
