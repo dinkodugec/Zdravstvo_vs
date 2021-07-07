@@ -19,7 +19,7 @@
     <?php
     foreach ($bolnice as $bolnica):
       ?>
-      <option value="<?=$bolnica->sifra?>"> <?=$bolnica->naziv ?></option>
+      <option value="<?=$bolnica->sifra?>" <?=($bolnica->sifra==$entitet->bolnica) ? "selected": "" ?>>  <?=$bolnica->naziv ?></option>
       <?php endforeach; ?>
     </select>
   </label>

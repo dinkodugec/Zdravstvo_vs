@@ -3,8 +3,6 @@
 <table>
     <thead>
          <tr>
-         <th>
-           </th>
             <th>Naziv</th>
             <th>Mjesto</th>
             <th>Bolnica</th>
@@ -22,11 +20,11 @@
                 <td><?=$red->bolnica?></td>
                  <td>
                  <a href="<?=App::config('url')?>domzdravlja/promjena?sifra=<?=$red->sifra?>">
-                        <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
+                        <i title="promjena" class="fas fa-2x fa-pencil-alt"></i></a>
                     <?php if($red->ukupnopacijenata==0): ?>
-                        <a href="<?=App::config('url')?>domzdravlja/brisanje?sifra=<?=$red->sifra?>"
+                        <!-- <a href="<?=App::config('url')?>domzdravlja/brisanje?sifra=<?=$red->sifra?>"
                         onclick="return confirm('Sigurno obrisati<?=Funkcije::escapeSingleQuote($red->naziv) ?>?');">
-                        <i title="brisanje" style="color: red" class="fas fa-trash-alt"></i></a>
+                        <i title="brisanje" style="color: red" class="fas fa-trash-alt"></i></a> -->
                         <?php endif;?>
                 </td>
               </tr>
