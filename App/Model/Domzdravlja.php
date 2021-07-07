@@ -130,6 +130,10 @@ class Domzdravlja
             'bolnica'=>$entitet->bolnica
         ]);
 
+        
+        /* $izraz->debugDumpParams(); */
+       /*  die(); */
+
 
 
         $veza->commit();

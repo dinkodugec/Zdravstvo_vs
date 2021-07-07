@@ -1,7 +1,8 @@
 <form class="log-in-form" 
     action="<?=App::config('url')?>Domzdravlja/promjena"
     method="POST">
-  <h4 class="text-center">Promjena postojeceg Doma Zdravlja</h4>
+  <h4 class="text-center">Promjena postojeceg Doma Zdravlja</h4> 
+  
   <label>Naziv
     <input type="text" name="naziv" value="<?=$entitet->naziv?>">
   </label>
@@ -16,6 +17,7 @@
   <label>Bolnica
     <!-- <input type="text" name="bolnica" value="<?=$entitet->bolnica?>"> -->
     <select name="bolnica" >
+    <option value="">-- Odaberi Bolnicu --</option>
     <?php
     foreach ($bolnice as $bolnica):
       ?>
@@ -38,5 +40,5 @@
     <input type="submit" class="button expanded" value="Promjena"></input>
   </div>
 </div>
-<input type="hidden" name="sifra" value="<?=$smjer->sifra?>">
+<input type="hidden" name="sifra" value="<?=$entitet->sifra?>">
 </form>
