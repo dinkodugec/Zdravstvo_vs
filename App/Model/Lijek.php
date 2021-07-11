@@ -9,10 +9,7 @@ class Lijek
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-           select a.sifra, a.naziv, a.proizvodac,  
-           b.ime, b.prezime
-           from lijek a inner join pacijent b
-           on a.sifra=b.lijek;
+        select * from lijek where sifra=:sifra 
 
         
         ');
@@ -30,10 +27,11 @@ class Lijek
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.sifra, a.naziv, a.proizvodac,  
-        b.ime, b.prezime AS ukupnopacijenata
-        from lijek a inner join pacijent b  
-        on a.sifra=b.lijek;
+        select a.* 
+        from lijek a 
+        join bolest b
+        on a.bolest=b.sifra
+        group by a.naziv, a.bolest, a.proizvodac;
      
         
         ');
@@ -48,7 +46,7 @@ class Lijek
     {
         $veza = DB::getInstanca();
         $veza->beginTransaction();
-        $izraz=$veza->prepare('
+        /* $izraz=$veza->prepare('
         
             insert into pacijent
             (ime, prezime, oib, domzdravlja) values
@@ -62,17 +60,19 @@ class Lijek
             'domzdravlja'=>$entitet->domzdravlja
 
         ]);
-        $zadnjaSifra=$veza->lastInsertId();
+        $zadnjaSifra=$veza->lastInsertId(); */
         $izraz=$veza->prepare('
         
             insert into lijek 
-            (naziv, bolest,) values
-            (:naziv, :bolest)
+            (naziv, bolest, proizvodac) values
+            (:naziv, :bolest, :proizvodac)
         
         ');
         $izraz->execute([
-          'naziv'=>$zadnjaSifra,
-          'bolest'=>$entitet->bolest
+          'naziv'=>$entitet->naziv,
+          'bolest'=>$entitet->bolest,
+          'proizvodac'=>$entitet->proizvodac,
+
         ]);
 
         $veza->commit();
@@ -83,7 +83,7 @@ class Lijek
     {
         $veza = DB::getInstanca();
         $veza->beginTransaction();
-        $izraz=$veza->prepare('
+        /* $izraz=$veza->prepare('
         
           select lijek from pacijent where sifra=:sifra
         
@@ -107,19 +107,22 @@ class Lijek
             'domzdravlja'=>$entitet->domzdravlja,
             'sifra'=>$sifraLijek
             
-        ]);
+        ]); */
 
 
         $izraz=$veza->prepare('
         
             update lijek
-            set naziv=:naziv
+            set naziv=:naziv, bolest=:bolest, proizvodac=:proizvodac
             where sifra=:sifra
     
         ');
         $izraz->execute([
             'sifra'=>$entitet->sifra,
-            'naziv'=>$entitet->naziv
+            'naziv'=>$entitet->naziv,
+            'bolest'=>$entitet->bolest,
+            'proizvodac'=>$entitet->proizvodac,
+
         ]);
 
 
