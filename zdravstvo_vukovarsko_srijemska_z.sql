@@ -50,7 +50,7 @@ create table pacijent (
     lijek int not null
 );
 
-create table bolest (
+/*create table bolest (
     sifra int not null primary key auto_increment,
     intervencija int not null,
     naziv varchar (50) null,
@@ -63,12 +63,12 @@ create table intervencija (
     vozac int not null,
     vrijeme datetime null
     
-);
+);*/
 
 create table lijek (
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
-    bolest int not null,
+   /* bolest varchar (50) not null,*/
     proizvodac varchar (50) null
 );
 
@@ -77,8 +77,10 @@ create table lijek (
 alter table domzdravlja add foreign key (bolnica) references bolnica (sifra);
 alter table pacijent add foreign key (domzdravlja) references domzdravlja (sifra);
 alter table pacijent add foreign key (lijek) references lijek (sifra);
-alter table bolest add foreign key (intervencija) references intervencija (sifra);
+/*alter table bolest add foreign key (intervencija) references intervencija (sifra);*/
+/*
 alter table lijek add foreign key (bolest) references bolest (sifra);
+*/
 
 
 insert into bolnica (sifra,naziv,ravnatelj,odjel,doktor) values
@@ -96,6 +98,7 @@ insert into bolnica (sifra,naziv,ravnatelj,odjel,doktor) values
  (6,'Domzdravlja Rokovci','Rokovci',2);
  
  
+/*
 insert into intervencija (sifra,vozilo,vozac,vrijeme) values
 (1,1,1,null);
 
@@ -107,19 +110,20 @@ insert into bolest (sifra,intervencija,naziv,pacijent) values
 (4,1,'prijelom noge',1),
 (5,1,'upala',2),
 (6,1,'temperatura',2);
+*/
 
 
-insert into lijek (sifra,naziv,bolest,proizvodac) values
-(null,'Andol',3,'Galenika'),
-(null,'Astrazeneca',2,'Astrazeneca ltd'),
-(null,'Pfizer',2,'Pfizer gmbh'),
-(null,'Sputnik',2,'Sputnik gmbh'),
-(null,'Sumamed',4,'Pliva'),
-(null,'Panadol',6,'Bosna lijek'),
-(null,'Augementin',6,'Krka Novo Mesto'),
-(null,'Aspirin',6,'Bayer'),
-(null,'Paracetamol',6,'Belupo'),
-(null,'Efedrin',6,'Pliva');
+insert into lijek (sifra,naziv,proizvodac) values
+(null,'Andol','Galenika'),
+(null,'Astrazeneca','Astrazeneca ltd'),
+(null,'Pfizer','Pfizer gmbh'),
+(null,'Sputnik','Sputnik gmbh'),
+(null,'Sumamed','Pliva'),
+(null,'Panadol','Bosna lijek'),
+(null,'Augementin','Krka Novo Mesto'),
+(null,'Aspirin','Bayer'),
+(null,'Paracetamol','Belupo'),
+(null,'Efedrin','Pliva');
 
 
 
@@ -142,8 +146,5 @@ insert into operater values(null,'edunova@edunova.com',
 insert into operater values(null,'oper@edunova.hr',
 '$2y$12$kL5sRralxdraIcwdhgcYe.p0.l6Ij0YgnjfF/97uUC7UJGsjx8ES6',
 'Operater','Edunova','oper');
-
-
-
 
 

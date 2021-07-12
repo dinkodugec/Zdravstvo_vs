@@ -27,11 +27,9 @@ class Lijek
         $veza = DB::getInstanca();
         $izraz=$veza->prepare('
         
-        select a.* 
-        from lijek a 
-        join bolest b
-        on a.bolest=b.sifra
-        group by a.naziv, a.bolest, a.proizvodac;
+        select *
+        from lijek 
+        group by naziv, proizvodac;
      
         
         ');
@@ -64,13 +62,13 @@ class Lijek
         $izraz=$veza->prepare('
         
             insert into lijek 
-            (naziv, bolest, proizvodac) values
-            (:naziv, :bolest, :proizvodac)
+            (naziv, proizvodac) values
+            (:naziv, :proizvodac)
         
         ');
         $izraz->execute([
           'naziv'=>$entitet->naziv,
-          'bolest'=>$entitet->bolest,
+         /*  'bolest'=>$entitet->bolest, */
           'proizvodac'=>$entitet->proizvodac,
 
         ]);
@@ -113,14 +111,14 @@ class Lijek
         $izraz=$veza->prepare('
         
             update lijek
-            set naziv=:naziv, bolest=:bolest, proizvodac=:proizvodac
+            set naziv=:naziv, proizvodac=:proizvodac
             where sifra=:sifra
     
         ');
         $izraz->execute([
             'sifra'=>$entitet->sifra,
             'naziv'=>$entitet->naziv,
-            'bolest'=>$entitet->bolest,
+            /* 'bolest'=>$entitet->bolest, */
             'proizvodac'=>$entitet->proizvodac,
 
         ]);

@@ -83,7 +83,7 @@ class LijekController extends AutorizacijaController
     {
         $this->entitet = new stdClass();
         $this->entitet->naziv='';
-        $this->entitet->bolest='';
+       /*  $this->entitet->bolest=''; */
         $this->entitet->proizvodac='';
         $this->poruka='Unesite tražene podatke';
         $this->novoView();
@@ -109,7 +109,7 @@ class LijekController extends AutorizacijaController
     private function kontrola()
     {
         $this->kontrolaNaziv();
-        $this->kontrolaBolest();
+       /*  $this->kontrolaBolest(); */
     }
 
 
@@ -125,7 +125,7 @@ class LijekController extends AutorizacijaController
         }
     }
 
-    private function kontrolaBolest()
+    /* private function kontrolaBolest()
     {
         if(strlen(trim($this->entitet->bolest))==0){
             throw new Exception('Bolest obavezno');
@@ -134,6 +134,6 @@ class LijekController extends AutorizacijaController
         if(strlen(trim($this->entitet->bolest))>50){
             throw new Exception('Bolest predugačko');
         }
-    }
+    } */
 
 }
