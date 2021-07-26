@@ -4,8 +4,8 @@ if($dev){
     $baza=[
         'server'=>'localhost',
         'baza'=>'zdravstvo_vukovarsko_srijemska_z',
-        'korisnik'=>'edunova',
-        'lozinka'=>'edunova'
+        'korisnik'=>'root',
+        'lozinka'=>''
     ];
 
     $url='http://zdravstvo.vs.hr:8080/';

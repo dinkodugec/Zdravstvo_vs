@@ -12,9 +12,27 @@ class LijekController extends AutorizacijaController
 
     public function index()
     {
+        /* $lijekovi = Lijek::ucitajSve();
+        
+        foreach($lijekovi as $red){
+            if(file_exists(BP . 'public' . DIRECTORY_SEPARATOR .
+            'img' . DIRECTORY_SEPARATOR . 'lijek' . 
+            DIRECTORY_SEPARATOR . $red->sifra . '.png')){
+                $red->slika = App::config('url') . 
+                'public/img/lijek/' . $red->sifra . '.png';  //ako postoji datoteka na disku tada je $red slika
+            }else{
+                $red->slika = App::config('url') . 
+                'public/img/lijek/nepoznato.png';
+            }
+        }*/
+
         $this->view->render($this->viewDir . 'index',[
-            'entiteti'=>Lijek::ucitajSve()
-        ]);
+            'entiteti'=>Lijek::ucitajSve(),
+            'paginacija'=>$this->paginacija()
+        ]); 
+      
+      
+        /* $this->paginacija(); */
     }
 
     public function novo()
@@ -136,4 +154,81 @@ class LijekController extends AutorizacijaController
         }
     } */
 
+    /* public function paginacija($link, $broj_stranica, $aktivna = 1)  */
+    public function paginacija($link = "test-url", $broj_stranica = 10, $aktivna = 2)
+   {
+       $html =  '<nav aria-label="Pagination">
+       <ul class="pagination text-center">';
+   
+     
+   
+       if ($aktivna != 1) {
+           $href = $link . '?stranica=1';
+           $html .= '<li><a aria-label="Page '.$aktivna.'"  href="' . $href . '">&lt;&lt;</a></li>';
+           $prethodna = $aktivna - 1;
+           $href = $link . '?stranica='.$prethodna;
+           $html .= '<li><a aria-label="Page '.$prethodna.'" href="' . $href . '">&lt;</a></li>';
+       }
+       for ($i = 1; $i <= $broj_stranica; $i++) {
+           $href = $link . '?stranica='.$i;
+           $class_aktivna = '';
+           if ($aktivna == $i) {
+               $class_aktivna = " aktivna";
+           }
+           $html .= '<li><a   href="' . $href . '">'.$i.'</a></li>';
+       }
+   
+       if ($aktivna < $broj_stranica) {
+           $sljedeca = $aktivna + 1;
+           $href = $link . '?stranica='.$sljedeca;
+           $html .= '<li><a href="' . $href . '">&gt;</a></li>';
+           $href = $link . '?stranica='.$broj_stranica;
+           $html .= '<li><a href="' . $href . '">&gt;&gt;</a></li>';
+       }
+       $html .= '</ul>
+       </nav>';
+
+       return $html;
+   }
+
+
+  /*  public function paginacija($link = "test-url", $broj_stranica = 10, $aktivna = 2)
+   {
+       $html =  '<nav aria-label="Pagination">
+       <ul class="pagination text-center">';
+   
+     
+   
+       if ($aktivna != 1) {
+           $href = $link . '?stranica=1';
+           $html .= '<li><a class="link" href="' . $href . '">&lt;&lt;</a></li>';
+           $prethodna = $aktivna - 1;
+           $href = $link . '?stranica='.$prethodna;
+           $html .= '<li><a class="link" href="' . $href . '">&lt;</a></li>';
+       }
+       for ($i = 1; $i <= $broj_stranica; $i++) {
+           $href = $link . '?stranica='.$i;
+           $class_aktivna = '';
+           if ($aktivna == $i) {
+               $class_aktivna = " aktivna";
+           }
+           $html .= '<li><a class="link'.$class_aktivna.'" href="' . $href . '">'.$i.'</a></li>';
+       }
+   
+       if ($aktivna < $broj_stranica) {
+           $sljedeca = $aktivna + 1;
+           $href = $link . '?stranica='.$sljedeca;
+           $html .= '<li><a class="link" href="' . $href . '">&gt;</a></li>';
+           $href = $link . '?stranica='.$broj_stranica;
+           $html .= '<li><a class="link" href="' . $href . '">&gt;&gt;</a></li>';
+       }
+       $html .= '</ul>
+       </nav>';
+
+       return $html;
+   } */
+
+
+
 }
+

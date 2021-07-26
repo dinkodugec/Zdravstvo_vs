@@ -5,15 +5,13 @@
         <div class="large-3 cell">
             <div class="callout" style="min-height: 200x; text-align: center;">
 
-                <img src="<?=$red->slika?>" 
-                class="slika" id="p_<?=$red->sifra?>"
-                alt="<?=$red->naziv?> <?=$red->proizvodac?>"
-                style="max-height: 200px;"><br />
+                <img src="<?=$red->slika?>" alt="<?=$red->naziv?> <?=$red->proizvodac?>">
+               
+               <?=$red->naziv?> 
+               <?=$red->proizvodac?>
+               <br />
 
-                <?=$red->naziv?> <?=$red->proizvodac?><br />
-            
-
-                <?php if($red->naziv!=null): ?>
+               <?php if($red->naziv!=null): ?>
                 <br />
                 Naziv: <?=$red->naziv?>
                 <?php endif; ?>
@@ -36,6 +34,10 @@
             </div>
         </div>
           <?php endforeach; ?>
+          <?php
+          echo $paginacija;
+
+          ?>
         </div>
 
         

@@ -107,6 +107,42 @@ class IndexController extends Controller
       
         
 
+     /*
+    public function test()
+    {
+        $veza = DB::getInstanca();
+        $veza->beginTransaction();
+        for($i=0;$i<10000;$i++){
 
+        
+        $izraz=$veza->prepare('
+        
+            insert into osoba 
+            (ime, prezime, email, oib) values
+            (:ime, :prezime, :email, :oib)
+            
+        ');
+        $izraz->execute([
+            'ime'=>'Ime ' . $i,
+            'prezime'=>'Prezime ' . $i,
+            'email'=>'email' . $i . "@edunova.hr",
+            'oib'=>''
+        ]);
+        $zadnjaSifra=$veza->lastInsertId();
+        $izraz=$veza->prepare('
+        
+            insert into polaznik 
+            (osoba, brojugovora) values
+            (:osoba, :brojugovora)
+        
+        ');
+        $izraz->execute([
+            'osoba'=>$zadnjaSifra,
+            'brojugovora'=>''
+        ]);
+        }
+        $veza->commit();
+    }
+    */
 
 }    
