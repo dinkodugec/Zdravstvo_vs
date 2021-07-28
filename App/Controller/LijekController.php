@@ -26,9 +26,10 @@ class LijekController extends AutorizacijaController
             }
         }*/
 
+       $limit=5;
         $this->view->render($this->viewDir . 'index',[
-            'entiteti'=>Lijek::ucitajSve(),
-            'paginacija'=>$this->paginacija()
+            'entiteti'=>Lijek::ucitajPaginacija($limit),
+            'paginacija'=>$this->paginacija(Lijek::pobroji(), $limit)
         ]); 
       
       
@@ -155,8 +156,15 @@ class LijekController extends AutorizacijaController
     } */
 
     /* public function paginacija($link, $broj_stranica, $aktivna = 1)  */
-    public function paginacija($link = "test-url", $broj_stranica = 10, $aktivna = 2)
+    public function paginacija($broj_komada, $stavki_po_stranici= 10)
    {
+      /* echo "<pre>"; print_r($_SERVER);
+       die(); */
+
+       $link = $_SERVER["REDIRECT_URL"];
+       $aktivna= isset($_GET["stranica"]) ? $_GET["stranica"] : 1;
+       
+       $broj_stranica=ceil($broj_komada/$stavki_po_stranici);
        $html =  '<nav aria-label="Pagination">
        <ul class="pagination text-center">';
    
@@ -171,19 +179,21 @@ class LijekController extends AutorizacijaController
        }
        for ($i = 1; $i <= $broj_stranica; $i++) {
            $href = $link . '?stranica='.$i;
-           $class_aktivna = '';
+         /*   $class_aktivna = ''; */
            if ($aktivna == $i) {
-               $class_aktivna = " aktivna";
-           }
-           $html .= '<li><a   href="' . $href . '">'.$i.'</a></li>';
+            $html .= '<li><strong>'.$i.'</strong></li>';
+           } else{
+
+          $html .= '<li><a aria-label="Page '.$i.'"  href="' . $href . '">'.$i.'</a></li>';
+        }
        }
    
        if ($aktivna < $broj_stranica) {
            $sljedeca = $aktivna + 1;
            $href = $link . '?stranica='.$sljedeca;
-           $html .= '<li><a href="' . $href . '">&gt;</a></li>';
+           $html .= '<li><a aria-label="Page '.$sljedeca.'" href="' . $href . '">&gt;</a></li>';
            $href = $link . '?stranica='.$broj_stranica;
-           $html .= '<li><a href="' . $href . '">&gt;&gt;</a></li>';
+           $html .= '<li><a aria-label="Page '.$broj_stranica.'" href="' . $href . '">&gt;&gt;</a></li>';
        }
        $html .= '</ul>
        </nav>';

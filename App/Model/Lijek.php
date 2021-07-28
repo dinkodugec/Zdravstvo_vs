@@ -39,6 +39,45 @@ class Lijek
 
     }
 
+    public static function pobroji()
+    {
+
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+        select sifra
+        from lijek;
+     
+        
+        ');
+        $izraz->execute();
+        return count($izraz->fetchAll());
+
+
+    }
+
+    public static function ucitajPaginacija($limit=10)
+    {
+
+        $stranica=$_GET["stranica"] ?: 1;
+        $offset=$stranica*$limit-$limit;
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare("
+        
+        select *
+        from lijek 
+        group by naziv, proizvodac
+        limit $limit offset $offset
+     
+        
+        ");
+
+        $izraz->execute();
+        return $izraz->fetchAll();
+ 
+
+    }
+
 
     public static function dodajNovi($entitet)
     {
