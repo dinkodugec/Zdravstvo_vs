@@ -12,6 +12,13 @@ class PacijentController extends AutorizacijaController
     private $poruka='';                 
 
 
+    public function traziPacijenta()
+    {
+        header('Content-type: application/json');
+        echo json_encode(Pacijent::traziPacijenta());
+    }
+
+
     public function index()
     {
         $this->view->render($this->viewDir . 'index',[

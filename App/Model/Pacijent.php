@@ -3,6 +3,33 @@
 class Pacijent 
 {
 
+
+    public static function traziPacijenta()
+    {
+
+        $veza = DB::getInstanca();
+        $izraz=$veza->prepare('
+        
+        select a.*, b.naziv  
+        from pacijent a 
+        join domzdravlja b
+        on a.domzdravlja = b.sifra
+        left join lijek c on a.lijek=c.sifra
+        where concat(a.ime, \'\', a.prezime,\'\',
+        ifnull(b.naziv) like :uvjet and a.sifra not in
+        (select sifra from pacijent where domzdravlja=:domzdravlja)
+       
+        
+        ');
+        $izraz->execute([
+            'uvjet'=>'%' . $_GET['uvjet'] . '%',
+            'domzdravlja'=>$_GET['domzdravlja']
+        ]);
+        return $izraz->fetchAll();
+
+
+    }
+
     public static function ucitaj($sifra)
     {
 
