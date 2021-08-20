@@ -78,6 +78,19 @@ class DomzdravljaController extends AutorizacijaController
     }
 
 
+    public function dodajPacijenta()
+    {
+          Domzdravlja::dodajPacijenta();
+          echo "ok";
+    }
+
+    public function obisiPacijenta()
+    {
+          Domzdravlja::obrisiPacijenta();
+          echo "ok";
+    }
+
+
     private function noviEntitet()
     {
         $this->entitet = new stdClass(); // ugrađena klasa koja se ugrađena u php, praklasa

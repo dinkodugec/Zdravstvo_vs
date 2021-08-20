@@ -36,6 +36,9 @@ class Domzdravlja
         return $izraz->fetchAll();
     }
 
+    
+
+
     public static function dodajNovi($entitet)
     {
         try {
@@ -172,5 +175,33 @@ class Domzdravlja
         $izraz->execute(['sifra'=>$sifraBolnica]);
 
         $veza->commit();
+    }
+
+    public static function dodajPacijenta()
+    {
+
+        $veza = DB::getInstanca(); 
+        $izraz=$veza->prepare('
+        
+            insert into pacijent where sifra=:sifra 
+        
+        ');
+        $izraz->execute($_POST);
+        return $izraz->fetch();
+    
+    }
+
+    public static function obrisiPacijenta()
+    {
+
+        $veza = DB::getInstanca(); 
+        $izraz=$veza->prepare('
+        
+            delete pacijent where sifra=:sifra 
+        
+        ');
+        $izraz->execute($_POST);
+        return $izraz->fetch();
+    
     }
 }
