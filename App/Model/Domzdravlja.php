@@ -3,6 +3,24 @@
 class Domzdravlja 
 {
 
+
+    public static function brojPacijenataPoDomuzdravlja()
+    {
+
+        $veza = DB::getInstanca(); 
+        $izraz=$veza->prepare('
+        
+        select a.naziv as name, count(b.sifra) as y
+        from domzdravlja a inner join pacijent b 
+        on a.sifra =.b.domzdravlja
+        group by a.naziv; 
+        
+        ');
+        $izraz->execute();
+        return $izraz->fetch();
+    
+    }
+
    public static function ucitaj($sifra)
     {
 
