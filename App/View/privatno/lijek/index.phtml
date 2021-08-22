@@ -1,4 +1,18 @@
-<a href="<?=App::config('url')?>lijek/novo">Dodaj novi lijek</a>
+<div class="grid-x grid-margin-x">
+    <div class="large-11 medium-11 small-10 cell">
+        <form action="<?=App::config('url')?>pacijent/index" method="get">
+            <input type="text" name="uvjet" value="<?=$uvjet?>"
+            placeholder="Unesite dio imena lijeka">
+        </form>
+    </div>
+    <div class="large-1 medium-1 small-2 cell" style="padding-top:5px;">
+        
+        <a href="<?=App::config('url')?>pacijent/novo">
+        <i class="fas fa-2x fa-plus-circle"></i>
+        </a>
+    </div>
+</div>
+
 
 <div class="grid-x grid-margin-x">
     <?php foreach($entiteti as $red): ?>

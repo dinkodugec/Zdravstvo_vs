@@ -29,7 +29,8 @@ class LijekController extends AutorizacijaController
        $limit=5;
         $this->view->render($this->viewDir . 'index',[
             'entiteti'=>Lijek::ucitajPaginacija($limit),
-            'paginacija'=>$this->paginacija(Lijek::pobroji(), $limit)
+            'paginacija'=>$this->paginacija(Lijek::pobroji(), $limit),
+            'uvjet'=>''
         ]); 
       
       
