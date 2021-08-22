@@ -12,6 +12,13 @@ class LijekController extends AutorizacijaController
 
     public function index()
     {
+
+        if(isset($_GET['uvjet'])){
+            $uvjet='%' . $_GET['uvjet'] . '%';
+        }else{
+            $uvjet='%';
+            $_GET['uvjet']='';
+        }
         /* $lijekovi = Lijek::ucitajSve();
         
         foreach($lijekovi as $red){
@@ -30,7 +37,7 @@ class LijekController extends AutorizacijaController
         $this->view->render($this->viewDir . 'index',[
             'entiteti'=>Lijek::ucitajPaginacija($limit),
             'paginacija'=>$this->paginacija(Lijek::pobroji(), $limit),
-            'uvjet'=>''
+            'uvjet'=>$_GET['uvjet']
         ]); 
       
       
