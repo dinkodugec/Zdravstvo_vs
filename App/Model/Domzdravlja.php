@@ -205,7 +205,7 @@ class Domzdravlja
         
         ');
         $izraz->execute($_POST);
-        return $izraz->fetch();
+       
     
     }
 
@@ -219,7 +219,7 @@ class Domzdravlja
         
         ');
         $izraz->execute($_POST);
-        return $izraz->fetch();
+       
     
     }
 }
