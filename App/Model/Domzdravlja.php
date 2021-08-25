@@ -201,7 +201,8 @@ class Domzdravlja
         $veza = DB::getInstanca(); 
         $izraz=$veza->prepare('
         
-            insert into pacijent where sifra=:sifra 
+            insert into pacijent (ime,prezime,oib,domzdravlja,lijek)
+            values(:ime,:prezime,:oib,:domzdravlja,:lijek );
         
         ');
         $izraz->execute($_POST);
@@ -215,7 +216,7 @@ class Domzdravlja
         $veza = DB::getInstanca(); 
         $izraz=$veza->prepare('
         
-            delete pacijent where sifra=:sifra 
+            delete from  pacijent where domzdravlja=:domzdravlja; 
         
         ');
         $izraz->execute($_POST);
