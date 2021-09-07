@@ -59,7 +59,7 @@ class Lijek
     public static function ucitajPaginacija($limit=10)
     {
 
-        $stranica=$_GET["stranica"] ?: 1;
+        $stranica=$_GET["stranica"] ?? 1;
         $offset=$stranica*$limit-$limit;
         $veza = DB::getInstanca();
         $izraz=$veza->prepare("

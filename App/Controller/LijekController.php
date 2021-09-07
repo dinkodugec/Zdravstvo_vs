@@ -246,6 +246,13 @@ class LijekController extends AutorizacijaController
        return $html;
    } */
 
+   public function traziLijek()
+   {
+ 
+          
+
+   }
+
 
 
 }

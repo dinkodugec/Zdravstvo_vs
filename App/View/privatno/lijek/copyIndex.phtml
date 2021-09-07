@@ -61,32 +61,13 @@
         </div>
 
         <script>
-        $( function() {
-    function log( message ) {
-      $( "<div>" ).text( message ).prependTo( "#log" );
-      $( "#log" ).scrollTop( 0 );
-    }
- 
-    $( "#birds" ).autocomplete({
+        
+            $( "#uvjet" ).autocomplete({
       source: "search.php",
       minLength: 2,
       select: function( event, ui ) {
         log( "Selected: " + ui.item.value + " aka " + ui.item.id );
       }
     });
-  } );
-  </script>
-
-
- 
-<div class="ui-widget">
-  <label for="birds">Birds: </label>
-  <input id="birds">
-</div>
- 
-<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-  Result:
-  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-</div>
         </script>
 

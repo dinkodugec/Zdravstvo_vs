@@ -41,7 +41,11 @@
             <th>Akcija</th>
           </tr>
         </thead>
-        <tbody id="polaznici">
+        <tbody id="pacijenti">
+          <?php
+            if(isset($entitet->pacijent)):
+        
+          ?>
        <?php foreach($entitet->pacijent as $red): ?>
             <tr>
                 <td><?=$red->ime . ' ' . $red->prezime;?></td>
@@ -54,7 +58,10 @@
                 </td>
             </tr>
 
-        <?php endforeach; ?> -->
+        <?php endforeach; ?> 
+        <?php
+            endif;
+        ?>
         </tbody>
       </table>
       <hr />
