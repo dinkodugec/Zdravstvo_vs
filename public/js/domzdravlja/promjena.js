@@ -1,7 +1,8 @@
+
 $('#uvjet').autocomplete({
     source: function(req,res){
         $.ajax({
-            url:'/Pacijent/traziPacijenta',
+            url:'/pacijent/traziPacijenta',
             data:{
                 uvjet: req.term,
                 domzdravlja: domzdravlja
@@ -12,15 +13,17 @@ $('#uvjet').autocomplete({
         });
     },
     minLength: 2,
-    select: function(dogadaj,stavka){
-        console.log(stavka);
+    select: function(dogadaj,ui){
+        spremi(domzdravlja,ui.item);
     }
-}).autocomplete('instance')._renderItem=function(ul,item){
-    return $('<li>').append(item.ime).appendTo(ul);
+}).autocomplete('instance')._renderItem=function(ul,pacijent){
+    return $('<li>').append('<div>' + pacijent.ime + ' ' + pacijent.prezime +
+    '</div>').appendTo(ul);
 };
 
 function spremi(domzdravlja,pacijent){
-    
+    //console.log('grupa:' + grupa);
+    //console.log('polaznik:' + polaznik.sifra);
     $.ajax({
         type:'POST',
         url:'/domzdravlja/dodajPacijenta',
@@ -50,13 +53,14 @@ function definirajBrisanje(){
     $('.brisanje').click(function(){
         let element=$(this);
         let sifra = element.attr('id').split('_')[1];
-        
+        //console.log('domzdravlja:' + domzdravlja);
+        //console.log('pacijent:' + sifra);
         $.ajax({
             type:'POST',
             url:'/domzdravlja/obrisiPacijenta',
             data:{
                 pacijent: sifra,
-                domzdravlja: grupa
+                domzdravlja: domzdravlja
             },
             success: function(odgovor){
                 if(odgovor==='OK'){
