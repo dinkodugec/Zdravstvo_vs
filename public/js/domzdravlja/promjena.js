@@ -23,7 +23,7 @@ $('#uvjet').autocomplete({
 
 function spremi(domzdravlja,pacijent){
     //console.log('grupa:' + grupa);
-    //console.log('polaznik:' + polaznik.sifra);
+    //console.log('pacijent:' + pacijent.sifra);
     $.ajax({
         type:'POST',
         url:'/domzdravlja/dodajPacijenta',
