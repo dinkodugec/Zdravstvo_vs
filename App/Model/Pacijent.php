@@ -17,8 +17,7 @@ class Pacijent
         left join lijek c on a.lijek=c.sifra
         where concat(a.ime, \'\', a.prezime,\'\',
         ifnull(b.naziv) like :uvjet and a.sifra not in
-        (select sifra from pacijent where domzdravlja=:domzdravlja)
-       
+        (select sifra from pacijent where domzdravlja=:domzdravlja)       
         
         ');
         $izraz->execute([

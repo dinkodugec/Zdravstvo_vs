@@ -33,12 +33,12 @@
     <div class="cell">
       <hr />
       <input type="text" id="uvjet"
-            placeholder="Unesite dio imena Doma Zdravlja">
+            placeholder="Unesite dio imena Pacijenta">
       <table>
         <thead>
           <tr>
-            <th>Dom Zdravlja</th>
-            <th>Akcija</th>
+            <th>Pacijent</th>
+           <!--  <th>Akcija</th> -->
           </tr>
         </thead>
         <tbody id="pacijenti">
@@ -81,3 +81,6 @@
 </div>
 <input type="hidden" name="sifra" value="<?=$entitet->sifra?>">
 </form>
+<script>
+let domzdravlja=<?=$entitet->sifra?>;
+</script>
