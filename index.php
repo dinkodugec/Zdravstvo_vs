@@ -3,9 +3,9 @@
 //https://stackify.com/display-php-errors/
 // odkomentirati kada želimo vidjeti sva upozorenja i greške
 
-ini_set('display_errors', 1);
+/* ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL); */
 
 
 
@@ -14,15 +14,15 @@ session_start(); // globalna varijabla na serveru i podaci se pohranjuju dok je 
 //echo __DIR__;
 define('BP',__DIR__ . DIRECTORY_SEPARATOR);    // funkcija define, ne mozemo joj mijenjati zadane vrijednosti
 define('BP_APP',__DIR__ . DIRECTORY_SEPARATOR   // ugrađena konstanta koja vraca putanju gdje se file nalazi
-            . 'App' . DIRECTORY_SEPARATOR);   // DIRECTORY_SEPARATOR  oznaka između direktorija (onaj blackslash)
+            . 'app' . DIRECTORY_SEPARATOR);   // DIRECTORY_SEPARATOR  oznaka između direktorija (onaj blackslash)
 
 //echo BP;
 
 $putanje=implode(
     PATH_SEPARATOR,    
     [
-        BP_APP . 'Model',
-        BP_APP . 'Controller'
+        BP_APP . 'model',
+        BP_APP . 'controller'
     ]
 );
 
