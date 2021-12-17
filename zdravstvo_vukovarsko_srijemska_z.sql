@@ -68,7 +68,6 @@ create table intervencija (
 create table lijek (
     sifra int not null primary key auto_increment,
     naziv varchar (50) not null,
-   /* bolest varchar (50) not null,*/
     proizvodac varchar (50) null
 );
 
@@ -79,8 +78,9 @@ alter table pacijent add foreign key (domzdravlja) references domzdravlja (sifra
 alter table pacijent add foreign key (lijek) references lijek (sifra);
 /*alter table bolest add foreign key (intervencija) references intervencija (sifra);*/
 /*
-alter table lijek add foreign key (bolest) references bolest (sifra);
+alter table lijek add foreign key (bolest) references bolest (sifra)
 */
+alter table lijek add slika varchar(49) null;
 
 
 insert into bolnica (sifra,naziv,ravnatelj,odjel,doktor) values

@@ -22,11 +22,11 @@
                 <a href="<?=App::config('url')?>pacijent/promjena?sifra=<?=$red->sifra?>">
                         <i title="promjena" class="fas fa-2x fa-pencil-alt"></i>
                     </a>
-                    <?php if($red->domzdravlja==0): ?>
+                    
                         <a href="<?=App::config('url')?>pacijent/brisanje?sifra=<?=$red->sifra?>"
                         onclick="return confirm('Sigurno obrisati <?=Funkcije::escapeSingleQuote($red->ime . ' ' . $red->prezime) ?>?');">
                         <i title="brisanje" style="color: red" class="fas fa-trash-alt"></i></a>
-                        <?php endif;?>
+                      
                 </td>
             </tr>    
                     

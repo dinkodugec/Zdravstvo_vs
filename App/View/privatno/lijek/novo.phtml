@@ -1,6 +1,6 @@
 <form class="log-in-form" 
     action="<?=App::config('url')?>lijek/novo"
-    method="POST">
+    method="POST" enctype="multipart/form-data">
   <h4 class="text-center">Dodavanje novog Lijeka</h4>
 
 
@@ -15,6 +15,14 @@
       <label>Bolest
         <input type="text"  name="bolest" value="<?=$entitet->bolest?>">
       </label> -->
+    </div>
+
+    <div class="grid-x grid-padding-x">
+    <div class="cell large-6">
+        <label>Slika
+          <input type="file" name="slika">
+        </label>
+      </div>
     </div>
   
 

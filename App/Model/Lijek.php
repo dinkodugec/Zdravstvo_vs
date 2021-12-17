@@ -79,36 +79,25 @@ class Lijek
     }
 
 
-    public static function dodajNovi($entitet)
+    public static function dodajNovi($entitet,$file)
     {
         $veza = DB::getInstanca();
         $veza->beginTransaction();
-        /* $izraz=$veza->prepare('
-        
-            insert into pacijent
-            (ime, prezime, oib, domzdravlja) values
-            (:ime, :prezime, :oib, :domzdravlja)
-            
-        ');
-        $izraz->execute([
-            'ime'=>$entitet->ime,
-            'prezime'=>$entitet->prezime,
-            'oib'=>$entitet->oib,
-            'domzdravlja'=>$entitet->domzdravlja
+        $slikaNaziv = self::uploadPicture($file);
+       
 
-        ]);
-        $zadnjaSifra=$veza->lastInsertId(); */
         $izraz=$veza->prepare('
         
             insert into lijek 
-            (naziv, proizvodac) values
-            (:naziv, :proizvodac)
+            (naziv, proizvodac, slika) values
+            (:naziv, :proizvodac, :slika)
         
         ');
         $izraz->execute([
           'naziv'=>$entitet->naziv,
-         /*  'bolest'=>$entitet->bolest, */
           'proizvodac'=>$entitet->proizvodac,
+          'slika'=>$slikaNaziv
+
 
         ]);
 
@@ -197,5 +186,30 @@ class Lijek
         $izraz->execute(['sifra'=>$sifraLijek]);
 
         $veza->commit();
+    }
+
+    public static function uploadPicture($file)
+    {
+
+        $target_dir = "public/img/lijek/";
+       
+       
+        
+        $target_file = $target_dir . basename($file['slika']["name"]);
+         $uploadOk = 1;
+         
+        
+
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+          // if everything is ok, try to upload file
+          } else {
+            if (move_uploaded_file($file['slika']["tmp_name"], $target_file)) {
+              return $target_file;
+            } else {
+              echo "Sorry, there was an error uploading your file.";
+            }
+          }
+
     }
 }

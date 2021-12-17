@@ -51,9 +51,10 @@ class LijekController extends AutorizacijaController
             return;
         }
         $this->entitet = (object) $_POST;
+        $file=$_FILES;
         try {
             $this->kontrola();
-            Lijek::dodajNovi($this->entitet);
+            Lijek::dodajNovi($this->entitet,$file);
             $this->index();
         } catch (Exception $e) {
             $this->poruka=$e->getMessage();
