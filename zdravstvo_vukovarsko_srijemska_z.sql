@@ -113,7 +113,7 @@ insert into bolest (sifra,intervencija,naziv,pacijent) values
 */
 
 
-insert into lijek (sifra,naziv,proizvodac) values
+insert into lijek (sifra,naziv,proizvodac)/*  values
 (null,'Andol','Galenika'),
 (null,'Astrazeneca','Astrazeneca ltd'),
 (null,'Pfizer','Pfizer gmbh'),
@@ -123,7 +123,7 @@ insert into lijek (sifra,naziv,proizvodac) values
 (null,'Augementin','Krka Novo Mesto'),
 (null,'Aspirin','Bayer'),
 (null,'Paracetamol','Belupo'),
-(null,'Efedrin','Pliva');
+(null,'Efedrin','Pliva'); */
 
 
 

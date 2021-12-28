@@ -1,8 +1,8 @@
 <div class="grid-x grid-margin-x">
     <div class="large-11 medium-11 small-10 cell">
         <form action="<?=App::config('url')?>pacijent/index" method="get">
-            <input type="text" name="uvjet" id="uvjet" value="<?=$uvjet ??  "" ?>"
-            placeholder="Unesite dio imena lijeka">
+           <!--  <input type="text" name="uvjet" id="uvjet" value="<?=$uvjet ??  "" ?>"
+            placeholder="Unesite dio imena lijeka"> -->
         </form>
       <!-- <?php 
          isset($uvjet) ? $uvjet : ""  //ternary operator
@@ -11,7 +11,7 @@
     </div>
     <div class="large-1 medium-1 small-2 cell" style="padding-top:5px;">
         
-        <a href="<?=App::config('url')?>pacijent/novo">
+        <a href="<?=App::config('url')?>lijek/novo">
         <i class="fas fa-2x fa-plus-circle"></i>
         </a>
     </div>
@@ -61,7 +61,7 @@
           ?>
         </div>
 
-        <script>
+      <!--   <script>
         $( function() {
     function log( message ) {
       $( "<div>" ).text( message ).prependTo( "#log" );
@@ -77,10 +77,10 @@
     });
   } );
   </script>
-
+ -->
 
  
-<div class="ui-widget">
+<!-- <div class="ui-widget">
   <label for="birds">Birds: </label>
   <input id="birds">
 </div>
@@ -90,4 +90,4 @@
   <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
 </div>
         </script>
-
+ -->
